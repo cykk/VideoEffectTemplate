@@ -1,0 +1,87 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules/
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+
+# next.js
+/.next/
+/out/
+.trigger/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# public assets - root-level generated/uploaded content
+/public/
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env.local
+.env*.local
+.env.production
+.env.api.production
+.env.web.production
+.env.trigger.production
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+.idea.claude/
+.claude/
+.env.web.local
+.env.api.local
+/.next-web/
+/.next-api/
+/apps/web/.next/
+/apps/api/.next/
+/apps/api/.next-api-debug/
+/apps/web/.next-web/
+.cache/
+.env.web.cloudflare
+.env.web.cloudflare.production
+/apps/api/.next-api/
+/.cache/
+/ml/assets/
+/ml/logos/
+/ml/eval_set_frozen/
+/ml/eval_neg_frozen/
+/checkpoint/
+/docs/appsumo-redemption-codes.csv
+/test-images/
+/ml/eval_neg_frozen/images/
+__pycache__/
+/ml/test-images/
+/ml/data/watermark_testset/assets/backgrounds/*
+!/ml/data/watermark_testset/assets/backgrounds/.gitkeep
+/ml/data/watermark_testset/assets/logos/*
+!/ml/data/watermark_testset/assets/logos/.gitkeep
+/ml/data/watermark_testset/assets/fonts/*
+!/ml/data/watermark_testset/assets/fonts/.gitkeep
+/ml/data/watermark_testset/synthetic/images/*
+!/ml/data/watermark_testset/synthetic/images/.gitkeep
+/ml/data/watermark_testset/synthetic/masks/*
+!/ml/data/watermark_testset/synthetic/masks/.gitkeep
+/ml/data/watermark_testset/metadata/testset_master.csv

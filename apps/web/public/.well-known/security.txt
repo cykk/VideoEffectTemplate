@@ -1,0 +1,4 @@
+Contact: mailto:support@mp3totext.io
+Expires: 2027-07-14T23:59:59.000Z
+Canonical: https://mp3totext.io/.well-known/security.txt
+Preferred-Languages: en

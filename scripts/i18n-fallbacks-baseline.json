@@ -1,0 +1,9 @@
+{
+  "generatedAt": "2026-03-20T04:17:41.255Z",
+  "findings": [
+    "packages/shared/src/lib/credits/service.ts|437|object-fallback|object:description|Task failed – credits refunded",
+    "packages/shared/src/lib/payments/payment-service.ts|91|error-fallback|new:Error|Unknown error",
+    "packages/shared/src/lib/server/backend-fetch.ts|240|object-fallback|object:message|Backend request failed",
+    "packages/shared/src/lib/sse/connection-manager.ts|521|error-fallback|new:Error|Server error"
+  ]
+}

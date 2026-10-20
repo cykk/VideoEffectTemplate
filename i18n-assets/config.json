@@ -1,0 +1,44 @@
+{
+    "sourceLocale": "en",
+    "targetLocales": [],
+    "sourceFile": "packages/shared/src/i18n/locales/en.json",
+    "outputDir": "packages/shared/src/i18n/locales",
+    "glossaryDir": "i18n-assets/glossary",
+    "cacheFile": ".cache/i18n/tencent-tmt-cache.json",
+    "reportDir": ".cache/i18n/reports",
+    "qps": 4,
+    "maxRetries": 5,
+    "requestCharLimit": 2000,
+    "requestTimeoutMs": 15000,
+    "apiRegion": "ap-guangzhou",
+    "projectId": 0,
+    "localeSettings": {},
+    "protect": {
+        "brandNames": [
+            "WatermarkRemover.tech"
+        ],
+        "modelNames": [
+            "720P & 1080P",
+            "768p & 1080p",
+            "720p",
+            "1080p",
+            "Cloudflare",
+            "Cloudflare Pages",
+            "GraphQL",
+            "PayPal",
+            "PostgreSQL",
+            "React 19",
+            "REST API",
+            "SDK",
+            "SendGrid",
+            "TypeScript",
+            "Better Auth",
+            "Lit AI 4.5"
+        ]
+    },
+    "skipRules": {
+        "skipEmpty": true,
+        "skipPureUrl": true,
+        "skipPureEmail": true
+    }
+}

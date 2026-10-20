@@ -1,0 +1,1 @@
+ALTER TABLE "transcription_display_segments" ADD COLUMN "speaker_label_override" text;

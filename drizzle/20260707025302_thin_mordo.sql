@@ -1,0 +1,2 @@
+ALTER TABLE "transcription_jobs" ADD COLUMN "source_display_title" text;--> statement-breakpoint
+ALTER TABLE "transcription_jobs" ADD COLUMN "transcript_source" text DEFAULT 'ai_transcription' NOT NULL;

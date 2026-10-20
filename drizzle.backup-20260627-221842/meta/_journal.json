@@ -1,0 +1,83 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1772446368142,
+      "tag": "20260302101248_misty_rogue",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1776695400000,
+      "tag": "20260420143000_contact_messages",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1776702000000,
+      "tag": "20260421110000_drop_used_credits",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1780932000000,
+      "tag": "20260608152000_transcription_jobs",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1781083800000,
+      "tag": "20260610093000_add_transcription_stage",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1781110800000,
+      "tag": "20260610170000_drop_legacy_watermark_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1781170200000,
+      "tag": "20260611163000_add_transcription_display_layers",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1781235000000,
+      "tag": "20260612113000_streamline_transcription_storage",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1781252400000,
+      "tag": "20260612162000_add_transcription_feedback",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1781255600000,
+      "tag": "20260612190000_add_free_transcription_limits",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1781778123354,
+      "tag": "20260618182101_add_mind_map_template_key",
+      "breakpoints": true
+    }
+  ]
+}

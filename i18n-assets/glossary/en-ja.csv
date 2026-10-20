@@ -1,0 +1,49 @@
+source,target,comment
+WatermarkRemover.tech,WatermarkRemover.tech,brand
+Image Watermark Remover,画像透かし除去,product
+Video Watermark Remover,動画透かし除去,product
+Image to Video AI,画像から動画へのAI生成,product
+Text to Video AI,テキストから動画へのAI生成,product
+Text to Image AI,テキストから画像へのAI生成,product
+Image to Image AI,画像から画像へのAI生成,product
+Credits,クレジット,billing
+credits,クレジット,billing
+Membership,メンバーシップ,billing
+Subscription,サブスクリプション,billing
+subscription,サブスクリプション,billing
+Billing,請求,billing
+billing,請求,billing
+Account,アカウント,account
+account,アカウント,account
+Pricing,料金,marketing
+pricing,料金,marketing
+Magic Link,マジックリンク,auth
+magic link,マジックリンク,auth
+watermark,透かし,core
+watermarks,透かし,core
+watermark removal,透かし除去,core
+workspace,ワークスペース,core
+Explore feed,Explore フィード,core
+Google OAuth,Google OAuth,auth
+GitHub OAuth,GitHub OAuth,auth
+OAuth,OAuth,auth
+OpenAI,OpenAI,brand
+Anthropic,Anthropic,brand
+Stripe,Stripe,brand
+Supabase,Supabase,brand
+Vercel,Vercel,brand
+Cloudflare Pages,Cloudflare Pages,brand
+Help Center,ヘルプセンター,navigation
+Documentation,ドキュメント,navigation
+Docs,ドキュメント,navigation
+Quick Start,クイックスタート,navigation
+Contact Support,サポートに連絡,navigation
+Notifications,通知,navigation
+Profile,プロフィール,navigation
+Orders,注文履歴,navigation
+Cookies,Cookie,navigation
+Products,製品,navigation
+Product,製品,navigation
+Features,機能,navigation
+Public,公開,status
+Private,非公開,status

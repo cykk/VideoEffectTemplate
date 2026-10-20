@@ -1,0 +1,690 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme inline {
+
+
+    /*基础设施：设置 Tailwind v4 的默认无衬线字体为 Inter。  */
+    --font-sans: var(--font-inter);
+
+    /*基础设施：圆角变量 */
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+
+    /* ========================================
+     原子颜色
+     ======================================== */
+
+    /* Surface（浅色底色系） */
+    --color-surface-white: #FFFFFF;
+    --color-surface-subtle: #F1F5F9;
+    --color-surface-elevated: #E8EDF3;
+    --color-surface-border: #E2E8F0;
+
+    /* Brand 品牌色色阶 (Teal) */
+    --color-brand-50: #F1FAFA;
+    --color-brand-100: #DCF3F4;
+    --color-brand-200: #BCE8EB;
+    --color-brand-300: #8ED9DD;
+    --color-brand-400: #58C1C8;
+    --color-brand-500: #39A5AD;
+    --color-brand-600: #0C7A7C;
+    --color-brand-700: #26676A;
+    --color-brand-800: #245457;
+    --color-brand-900: #214649;
+    --color-brand-950: #112D30;
+
+    /* Accent 强调色色阶 (与 Brand 保持一致，实现单色极简设计) */
+    --color-accent-50: var(--color-brand-50);
+    --color-accent-100: var(--color-brand-100);
+    --color-accent-200: var(--color-brand-200);
+    --color-accent-300: var(--color-brand-300);
+    --color-accent-400: var(--color-brand-400);
+    --color-accent-500: var(--color-brand-500);
+    --color-accent-600: var(--color-brand-600);
+    --color-accent-700: var(--color-brand-700);
+    --color-accent-800: var(--color-brand-800);
+    --color-accent-900: var(--color-brand-900);
+    --color-accent-950: var(--color-brand-950);
+
+    /* Slate 灰度（中性色） */
+    --color-slate-50: #F8FAFC;
+    --color-slate-100: #F1F5F9;
+    --color-slate-200: #E2E8F0;
+    --color-slate-300: #CBD5E1;
+    --color-slate-400: #94A3B8;
+    --color-slate-500: #64748B;
+    --color-slate-600: #475569;
+    --color-slate-700: #334155;
+    --color-slate-800: #1E293B;
+    --color-slate-900: #0F172A;
+    --color-slate-950: #020617;
+
+    /* ========================================
+     功能色系统（Status Colors）
+     用于状态提示、通知、反馈
+     ======================================== */
+
+    --color-green-500: #10B981;
+    --color-amber-500: #F59E0B;
+    --color-red-500: #EF4444;
+    --color-blue-500: #3B82F6;
+
+    /* ========================================
+     语义化颜色（Semantic）
+     用于特定用途，引用原子颜色
+     用法：bg-background, bg-primary, text-foreground
+     ======================================== */
+
+    /* 背景和前景 */
+    --color-background: var(--color-slate-50);
+    --color-foreground: var(--color-slate-900);
+    --color-card: var(--color-surface-white);
+    --color-card-foreground: var(--color-slate-900);
+    --color-popover: var(--color-surface-white);
+    --color-popover-foreground: var(--color-slate-900);
+    --color-muted: var(--color-surface-subtle);
+    --color-muted-foreground: var(--color-slate-500);
+
+    /* 主色系 — brand-600 保证白字对比度 4.6:1 (WCAG AA) */
+    --color-primary: var(--color-brand-600);
+    --color-primary-foreground: #FFFFFF;
+    --color-secondary: var(--color-surface-elevated);
+    --color-secondary-foreground: var(--color-slate-900);
+    --color-accent: var(--color-brand-600);
+    --color-accent-foreground: #FFFFFF;
+
+    /* 交互状态 */
+    --color-border: var(--color-surface-border);
+    --color-input: var(--color-surface-border);
+    --color-ring: var(--color-brand-600);
+
+    /* 功能色 — 浅底 + 深色文字，浅色主题下对比度更佳 */
+    --color-success: #059669;
+    --color-success-foreground: #FFFFFF;
+    --color-warning: #D97706;
+    --color-warning-foreground: #FFFFFF;
+    --color-error: #DC2626;
+    --color-error-foreground: #FFFFFF;
+    --color-info: #2563EB;
+    --color-info-foreground: #FFFFFF;
+    --color-destructive: #DC2626;
+    --color-destructive-foreground: #FFFFFF;
+
+    /* 任务状态色 */
+    --color-processing: #D97706;
+    --color-processing-foreground: #FFFFFF;
+    --color-published: var(--color-brand-600);
+    --color-published-foreground: #FFFFFF;
+
+    /* ========================================
+     组件颜色（Components）
+     用于特定组件，引用原子颜色和语义化颜色
+     （按照规范应该都引用语义化颜色）
+     ======================================== */
+
+    /* Sidebar */
+    --color-sidebar: var(--color-surface-subtle);
+    --color-sidebar-foreground: var(--color-foreground);
+    --color-sidebar-primary: var(--color-primary);
+    --color-sidebar-primary-foreground: #FFFFFF;
+    --color-sidebar-accent: var(--color-surface-elevated);
+    --color-sidebar-accent-foreground: var(--color-foreground);
+    --color-sidebar-border: var(--color-surface-border);
+    --color-sidebar-ring: var(--color-primary);
+
+    /* Workspace */
+    --color-workspace: var(--color-surface-white);
+    --color-workspace-foreground: var(--color-slate-900);
+    --color-panel: var(--color-surface-white);
+    --color-panel-foreground: var(--color-slate-900);
+    --color-elevated: var(--color-surface-elevated);
+    --color-elevated-foreground: var(--color-slate-900);
+
+    /* Charts */
+    --color-chart-1: var(--color-brand-600);
+    --color-chart-2: var(--color-brand-400);
+    --color-chart-3: #2563EB;
+    --color-chart-4: #D97706;
+    --color-chart-5: #059669;
+
+    /* ========================================
+     RGB 通道变量（用于 rgba() 透明度场景）
+     ======================================== */
+    --color-brand-600-rgb: 12 122 124;
+    --color-brand-500-rgb: 57 165 173;
+    --color-slate-300-rgb: 203 213 225;
+    --color-slate-400-rgb: 148 163 184;
+    --color-primary-rgb: var(--color-brand-600-rgb);
+
+    /* ========================================
+     工具组件颜色（Tool Components）
+     用于水印去除相关的 UI 组件
+     ======================================== */
+
+    /* 工具卡片 */
+    --color-video-card: var(--color-surface-white);
+    --color-video-card-foreground: var(--color-slate-900);
+    --color-video-card-border: var(--color-surface-border);
+    --color-video-card-hover: var(--color-surface-subtle);
+
+    /* 预览区域 */
+    --color-player-bg: var(--color-slate-900);
+    --color-player-controls: var(--color-slate-800);
+    --color-player-progress: var(--color-primary);
+    --color-player-text: #FFFFFF;
+
+    /* 状态徽章 */
+    --color-badge-draft: var(--color-slate-500);
+    --color-badge-draft-foreground: #FFFFFF;
+    --color-badge-processing: #D97706;
+    --color-badge-processing-foreground: #FFFFFF;
+    --color-badge-published: var(--color-brand-600);
+    --color-badge-published-foreground: #FFFFFF;
+    --color-badge-error: #DC2626;
+    --color-badge-error-foreground: #FFFFFF;
+
+    /* 上传区域 */
+    --color-upload-border: var(--color-slate-300);
+    --color-upload-border-hover: var(--color-primary);
+    --color-upload-bg: var(--color-surface-subtle);
+    --color-upload-bg-hover: var(--color-brand-50);
+    --color-upload-text: var(--color-slate-500);
+    --color-upload-icon: var(--color-primary);
+
+    /* 进度条 */
+    --color-progress-bg: var(--color-slate-200);
+    --color-progress-fill: var(--color-primary);
+    --color-progress-success: #059669;
+    --color-progress-error: #DC2626;
+
+    /* ========================================
+     Landing Page 专用颜色
+     ======================================== */
+    --color-landing-features: var(--color-surface-subtle);
+    --color-landing-section: var(--color-surface-white);
+    --color-landing-faq: var(--color-surface-subtle);
+    --color-landing-surface-secondary: var(--color-surface-elevated);
+
+    /* ========================================
+     Landing Page 专用光效 (Images/Gradients)
+     ======================================== */
+    --background-image-landing-glow: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(12, 122, 124, 0.11), rgba(255, 255, 255, 0));
+
+    /* Hero 渐变背景 */
+    --gradient-hero: radial-gradient(ellipse at top, var(--color-primary) 0%, var(--color-surface-subtle) 50%);
+}
+
+:root {
+    /* 字体家族 */
+    --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+
+    /* 字重 (Font Weight) */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* 字号 (Font Size) - 桌面端 */
+    --text-xs: 0.875rem;
+    /* 14px */
+    --text-sm: 0.9375rem;
+    /* 15px */
+    --text-base: 1rem;
+    /* 16px */
+    --text-lg: 1.125rem;
+    /* 18px */
+    --text-xl: 1.25rem;
+    /* 20px */
+    --text-2xl: 1.5rem;
+    /* 24px */
+    --text-3xl: 1.75rem;
+    /* 28px */
+    --text-4xl: 2.25rem;
+    /* 36px */
+    --text-5xl: 2.5rem;
+    /* 40px */
+    --text-6xl: 3rem;
+    /* 48px */
+    --text-7xl: 3.5rem;
+    /* 56px */
+
+    /* 行高 (Line Height) */
+    --leading-tight: 1.2;
+    --leading-snug: 1.3;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.6;
+
+    /* 标题字号 - 桌面端 */
+    --heading-h1: var(--text-7xl);
+    /* 56px */
+    --heading-h2: var(--text-4xl);
+    /* 36px */
+    --heading-h3: var(--text-2xl);
+    /* 24px */
+
+    /* 移动端字号覆盖 */
+    @media (max-width: 768px) {
+        --text-7xl: 2.25rem;
+        /* 36px */
+        --text-6xl: 2.5rem;
+        /* 40px */
+        --text-5xl: 2rem;
+        /* 32px */
+        --text-4xl: 1.75rem;
+        /* 28px */
+        --text-3xl: 1.5rem;
+        /* 24px */
+        --text-2xl: 1.25rem;
+        /* 20px */
+        --text-xl: 1.125rem;
+        /* 18px */
+
+        --heading-h1: 2.25rem;
+        /* 36px */
+        --heading-h2: 1.75rem;
+        /* 28px */
+        --heading-h3: 1.25rem;
+        /* 20px */
+    }
+
+    --radius: 0.625rem;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+        font-family: var(--font-family-base);
+        font-size: var(--text-base);
+        font-weight: var(--font-weight-normal);
+        line-height: var(--leading-relaxed);
+    }
+
+    /* 标题样式 */
+    h1 {
+        font-size: var(--heading-h1);
+        font-weight: var(--font-weight-bold);
+        line-height: var(--leading-tight);
+    }
+
+    h2 {
+        font-size: var(--heading-h2);
+        font-weight: var(--font-weight-semibold);
+        line-height: var(--leading-snug);
+    }
+
+    h3 {
+        font-size: var(--heading-h3);
+        font-weight: var(--font-weight-semibold);
+        line-height: var(--leading-snug);
+    }
+
+    /* 段落 */
+    p {
+        font-size: var(--text-base);
+        line-height: var(--leading-relaxed);
+    }
+
+    /* 小文本 */
+    small {
+        font-size: var(--text-sm);
+        line-height: var(--leading-normal);
+    }
+
+    /* 按钮和 UI 元素 */
+    button,
+    [role="button"] {
+        font-weight: var(--font-weight-medium);
+        font-size: var(--text-base);
+        line-height: var(--leading-tight);
+    }
+
+    /* 自定义滚动条样式 - Ocean Clean Light */
+    /* Webkit浏览器 (Chrome, Safari, Edge) */
+    *::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: var(--color-slate-50) !important;
+        transition: none !important;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background: var(--color-slate-300) !important;
+        border-radius: 4px;
+        transition: none !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+        background: var(--color-slate-400) !important;
+        border-radius: 4px;
+        transition: none !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    *::-webkit-scrollbar-thumb:active {
+        background: var(--color-slate-400) !important;
+        border-radius: 4px;
+        transition: none !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    /* Firefox */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-slate-300) var(--color-slate-50);
+    }
+}
+
+/* 动画 */
+@layer utilities {
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 0.8s ease-out;
+    }
+
+    /* Shimmer animation for Before/After demo */
+    @keyframes shimmer {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    .animate-shimmer {
+        animation: shimmer 2s infinite;
+    }
+
+    @keyframes dropzone-glow {
+
+        0%,
+        100% {
+            box-shadow: 0 0 12px rgb(var(--color-primary-rgb) / 0.25), 0 0 32px rgb(var(--color-primary-rgb) / 0.1);
+        }
+
+        50% {
+            box-shadow: 0 0 20px rgb(var(--color-primary-rgb) / 0.4), 0 0 48px rgb(var(--color-primary-rgb) / 0.18);
+        }
+    }
+
+    .animate-dropzone-glow {
+        animation: dropzone-glow 1.5s ease-in-out infinite;
+    }
+
+    /* Subtle pulsing glow for RainbowButton */
+    @keyframes pulse-glow {
+        0%, 100% {
+            opacity: 0.2;
+            transform: scale(0.95);
+        }
+        50% {
+            opacity: 0.45;
+            transform: scale(1.05);
+        }
+    }
+
+    .animate-pulse-glow {
+        animation: pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* Premium Shimmer Sweep for Buttons */
+    @keyframes shimmer-sweep {
+        0% {
+            background-position: 200% center;
+        }
+        100% {
+            background-position: -200% center;
+        }
+    }
+
+    .animate-shimmer-sweep {
+        animation: shimmer-sweep 2.5s ease-in-out infinite;
+        background-image: linear-gradient(
+            120deg,
+            transparent 0%,
+            transparent 35%,
+            rgba(255, 255, 255, 0.35) 50%,
+            transparent 65%,
+            transparent 100%
+        );
+        background-size: 250% 100%;
+        background-repeat: no-repeat;
+    }
+
+    /* 隐藏滚动条但保留滚动功能 */
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari and Opera */
+    }
+
+    .scrollbar-thin::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+        background: rgb(var(--color-slate-300-rgb) / 0.8);
+        border-radius: 2px;
+        opacity: 1 !important;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+        background: rgb(var(--color-slate-400-rgb) / 0.9);
+    }
+
+    .scrollbar-thin {
+        scrollbar-width: thin;
+        scrollbar-color: rgb(var(--color-slate-300-rgb) / 0.8) transparent;
+    }
+
+    .scrollbar-reading::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .scrollbar-reading::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .scrollbar-reading::-webkit-scrollbar-thumb {
+        background: rgb(var(--color-slate-300-rgb) / 0.6);
+        border-radius: 2px;
+    }
+
+    .scrollbar-reading::-webkit-scrollbar-thumb:hover {
+        background: rgb(var(--color-slate-300-rgb) / 0.85);
+    }
+
+    .scrollbar-reading::-webkit-scrollbar-thumb:active {
+        background: rgb(var(--color-slate-400-rgb) / 0.55);
+    }
+
+    .scrollbar-reading {
+        scrollbar-width: thin;
+        scrollbar-color: rgb(var(--color-slate-300-rgb) / 0.6) transparent;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+
+/* 自定义滑块样式 */
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    cursor: pointer;
+    border: 3px solid var(--color-surface-white);
+    box-shadow: 0 2px 8px rgb(var(--color-primary-rgb) / 0.35);
+    transition: all 0.2s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    background: var(--color-brand-500);
+    box-shadow: 0 4px 12px rgb(var(--color-primary-rgb) / 0.5);
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    cursor: pointer;
+    border: 3px solid var(--color-surface-white);
+    box-shadow: 0 2px 8px rgb(var(--color-primary-rgb) / 0.35);
+    transition: all 0.2s;
+}
+
+.slider::-moz-range-thumb:hover {
+    background: var(--color-brand-500);
+    box-shadow: 0 4px 12px rgb(var(--color-primary-rgb) / 0.5);
+}
+
+/* ========================================
+   Toast 通知样式 (Sonner)
+   ======================================== */
+
+[data-sonner-toast] {
+    position: relative;
+}
+
+/* ========================================
+   Toast 配色方案 - Ocean Clean Light
+   深色文字 + 白色背景 + 柔和阴影
+   ======================================== */
+
+.toaster,
+.toaster.group {
+    font-family: inherit !important;
+}
+
+[data-sonner-toast],
+[data-sonner-toast][data-styled="true"] {
+    background-color: var(--color-surface-white) !important;
+    color: var(--color-slate-900) !important;
+    border: 1px solid var(--color-surface-border) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    padding: 12px 20px !important;
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    width: auto !important;
+    max-width: min(90vw, 420px) !important;
+    min-width: auto !important;
+}
+
+[data-sonner-toast][data-styled="true"][data-type="warning"],
+[data-sonner-toast][data-styled="true"][data-type="error"],
+[data-sonner-toast][data-styled="true"][data-type="success"],
+[data-sonner-toast][data-styled="true"][data-type="info"] {
+    background-color: var(--color-surface-white) !important;
+    color: var(--color-slate-900) !important;
+}
+
+[data-sonner-toast] [data-title],
+[data-sonner-toast] [data-description],
+[data-sonner-toast] [data-content],
+[data-sonner-toast] div {
+    color: var(--color-slate-900) !important;
+}
+
+[data-sonner-toast] [data-close-button],
+[data-sonner-toast] button[data-button] {
+    display: none !important;
+}
+
+[data-sonner-toast][data-type="warning"] [data-icon],
+[data-sonner-toast][data-type="warning"] svg {
+    color: var(--color-amber-500) !important;
+}
+
+[data-sonner-toast][data-type="error"] [data-icon],
+[data-sonner-toast][data-type="error"] svg {
+    color: var(--color-red-500) !important;
+}
+
+[data-sonner-toast][data-type="success"] [data-icon],
+[data-sonner-toast][data-type="success"] svg {
+    color: var(--color-green-500) !important;
+}
+
+[data-sonner-toast][data-type="info"] [data-icon],
+[data-sonner-toast][data-type="info"] svg {
+    color: var(--color-blue-500) !important;
+}
+
+/* ========================================
+   Textarea 滚动条样式优化
+   ======================================== */
+
+textarea[data-slot="textarea"] {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--color-slate-300-rgb) / 0.6) transparent;
+}
+
+textarea[data-slot="textarea"]::-webkit-scrollbar {
+    width: 6px;
+}
+
+textarea[data-slot="textarea"]::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 0 1rem 1rem 0;
+}
+
+textarea[data-slot="textarea"]::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--color-slate-300-rgb) / 0.6);
+    border-radius: 3px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+}
+
+textarea[data-slot="textarea"]::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--color-slate-400-rgb) / 0.7);
+}
+
+textarea[data-slot="textarea"]:focus::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--color-brand-500-rgb) / 0.4);
+}
+
+textarea[data-slot="textarea"]:focus::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--color-brand-500-rgb) / 0.6);
+}

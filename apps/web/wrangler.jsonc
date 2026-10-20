@@ -1,0 +1,36 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mp3totext-web-preview",
+  "workers_dev": true,
+  "vars": {
+    "API_UPSTREAM_URL": "https://api.mp3totext.io",
+    "NEXT_PUBLIC_WEB_URL": "https://preview.mp3totext.io",
+    "NEXT_PUBLIC_APP_URL": "https://api.mp3totext.io"
+  },
+  "env": {
+    "production": {
+      "name": "mp3totext-web",
+      "vars": {
+        "API_UPSTREAM_URL": "https://api.mp3totext.io",
+        "NEXT_PUBLIC_WEB_URL": "https://mp3totext.io",
+        "NEXT_PUBLIC_APP_URL": "https://api.mp3totext.io"
+      }
+    }
+  },
+  "compatibility_date": "2026-10-20",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "main": "vinext/server/fetch-handler",
+  "assets": {
+    "directory": "dist/client",
+    "html_handling": "none",
+    "not_found_handling": "none",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/*",
+      "!/_next/static/*",
+      "!/*/_next/static/*"
+    ]
+  }
+}

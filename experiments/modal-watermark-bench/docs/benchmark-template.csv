@@ -1,0 +1,1 @@
+mode,iteration,image,sleep_seconds,request_wall_ms,pipeline_total_ms,segformer_ms,mask_postprocess_ms,lama_ms,watermark_detected,notes

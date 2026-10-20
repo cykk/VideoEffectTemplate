@@ -1,0 +1,31 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "./apps/web/src/*"
+      ],
+      "@markless/server/src/*": [
+        "./packages/server/src/*"
+      ],
+      "@markless/shared/src/*": [
+        "./packages/shared/src/*"
+      ]
+    }
+  },
+  "include": [
+    "apps/**/*.ts",
+    "apps/**/*.tsx",
+    "packages/**/*.ts",
+    "packages/**/*.tsx",
+    "drizzle.config.ts",
+    "trigger.config.ts",
+    "next-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "scripts",
+    "apps/**/.next/**",
+    "apps/**/.next-*/**"
+  ]
+}

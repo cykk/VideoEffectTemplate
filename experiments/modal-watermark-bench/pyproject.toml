@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "modal-watermark-bench"
+version = "0.1.0"
+description = "Independent Modal benchmark project for watermark removal."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "httpx>=0.28.0",
+  "modal>=1.2.0",
+  "numpy>=2.1.0",
+  "pandas>=2.2.0",
+  "pillow>=10.4.0",
+  "pydantic>=2.10.0",
+  "python-dotenv>=1.0.1",
+  "scipy>=1.14.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["bench*", "service*"]

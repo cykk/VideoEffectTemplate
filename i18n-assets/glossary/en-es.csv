@@ -1,0 +1,49 @@
+source,target,comment
+WatermarkRemover.tech,WatermarkRemover.tech,brand
+Image Watermark Remover,Eliminador de marcas de agua para imágenes,product
+Video Watermark Remover,Eliminador de marcas de agua para videos,product
+Image to Video AI,IA de imagen a video,product
+Text to Video AI,IA de texto a video,product
+Text to Image AI,IA de texto a imagen,product
+Image to Image AI,IA de imagen a imagen,product
+Credits,Créditos,billing
+credits,créditos,billing
+Membership,Membresía,billing
+Subscription,Suscripción,billing
+subscription,suscripción,billing
+Billing,Facturación,billing
+billing,facturación,billing
+Account,Cuenta,account
+account,cuenta,account
+Pricing,Precios,marketing
+pricing,precios,marketing
+Magic Link,Enlace mágico,auth
+magic link,enlace mágico,auth
+watermark,marca de agua,core
+watermarks,marcas de agua,core
+watermark removal,eliminación de marcas de agua,core
+workspace,espacio de trabajo,core
+Explore feed,feed Explorar,core
+Google OAuth,Google OAuth,auth
+GitHub OAuth,GitHub OAuth,auth
+OAuth,OAuth,auth
+OpenAI,OpenAI,brand
+Anthropic,Anthropic,brand
+Stripe,Stripe,brand
+Supabase,Supabase,brand
+Vercel,Vercel,brand
+Cloudflare Pages,Cloudflare Pages,brand
+Help Center,Centro de ayuda,navigation
+Documentation,Documentación,navigation
+Docs,Documentación,navigation
+Quick Start,Inicio rápido,navigation
+Contact Support,Contactar soporte,navigation
+Notifications,Notificaciones,navigation
+Profile,Perfil,navigation
+Orders,Pedidos,navigation
+Cookies,Cookies,navigation
+Products,Productos,navigation
+Product,Producto,navigation
+Features,Funciones,navigation
+Public,Público,status
+Private,Privado,status
