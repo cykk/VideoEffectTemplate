@@ -75,6 +75,14 @@ test('mismatched amount, currency and remote identity never grant', async () => 
   assert.equal((await localOrder(id)).status, 'pending');
 });
 
+test('one remote receipt cannot fulfill two different local orders', async () => {
+  const first = await order(); await send(event(first));
+  const second = await order();
+  const result = await send(event(second, 'order.completed', { paymentId: `PAY_${first}` }));
+  assert.equal(result.failed, 1); assert.equal(await balance(), 800);
+  assert.equal((await localOrder(second)).status, 'pending');
+});
+
 test('partial refund preserves paid status and unrelated credits for manual review', async () => {
   const id = await order(); await send(event(id));
   await send(event(id, 'refund.succeeded', { refundedAmount: '1.00', refundStatus: 'succeeded' }));
@@ -287,6 +295,10 @@ test('failed scheduled plan clears pending fields without replacing current enti
   const next = await order('subscription', { productId: 'tier2:monthly', metadata: { subscription_interval: 'month', credits_per_period: 1600, waffo_origin_subscription_id: old.id } });
   await send(event(next, 'subscription.plan_change_scheduled', { orderStatus: 'pending', planChange: { effectiveDate: END } }));
   assert.equal((await db.select().from(schema.userSubscriptions))[0].scheduledPlanId, 'tier2:monthly');
+  const resultRoute = require('../../apps/api/src/app/api/payment/success/route.ts');
+  const result = await (await resultRoute.POST(new Request('https://example.com/api/payment/success', { method: 'POST',
+    headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ order_id: next }) }))).json();
+  assert.equal(result.scheduled, true); assert.equal(result.settled, false);
   await send(event(next, 'subscription.plan_change_failed', { orderStatus: 'canceled' }));
   assert.equal((await db.select().from(schema.userSubscriptions))[0].scheduledPlanId, null);
   assert.equal((await localOrder(next)).status, 'failed'); assert.equal(await balance(), 800);

@@ -23,7 +23,7 @@ export class WaffoProvider implements IPaymentProvider {
     const session = await waffoRequest<{ sessionId: string; checkoutUrl: string; expiresAt: string }>('/v1/actions/checkout/create-session', {
       productId, currency: params.currency.toUpperCase(),
       priceSnapshot: { amount: Number(params.amount).toFixed(2), taxIncluded: false, taxCategory: config.taxCategory },
-      buyerEmail: params.customerEmail, successUrl: successUrl.toString(),
+      buyerEmail: params.customerEmail.trim().toLowerCase(), successUrl: successUrl.toString(),
       withTrial: false, expiresInSeconds: 1800, language: 'en', orderMerchantExternalId: params.orderId,
       metadata: { orderId: params.orderId, userId: params.userId, productId: params.productId, requestId: params.requestId },
     })

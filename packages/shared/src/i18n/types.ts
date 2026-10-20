@@ -3089,7 +3089,7 @@ export interface AppNamespaceDictionary {
         history: { label: { receipt: string; charged: string; tax: string; refunded: string; unconfirmed: string } };
         checkout: { error: { unavailable: string; provider: string; existingSubscription: string } };
         subscription: { plan: { tier1_monthly: string; tier1_yearly: string; tier2_monthly: string; tier2_yearly: string; tier3_monthly: string; tier3_yearly: string }; error: { resume: string; plan: string; change: string }; action: { portal: string; confirm: string; change: string; cancelChange: string; cancelWarning: string } };
-        status: { message: { pending: string; review: string; failed: string; confirmed: string } };
+        status: { message: { pending: string; review: string; failed: string; confirmed: string; scheduled: string } };
     };
     email: AppEmailDictionary;
 }

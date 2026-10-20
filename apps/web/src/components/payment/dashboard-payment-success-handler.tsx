@@ -112,7 +112,8 @@ export function DashboardPaymentSuccessHandler() {
           type ?? checkoutContext?.productType ?? null
         );
 
-        trackStarterPurchaseCompleted({
+        if (data.scheduled) toast.info(paymentMessages.status.message.scheduled);
+        else trackStarterPurchaseCompleted({
           dedupeKey: `${data.order.id}:${normalizedProductType ?? "unknown"}`,
           transactionId: data.order.id,
           value: Number(data.order.amount),
@@ -143,6 +144,7 @@ export function DashboardPaymentSuccessHandler() {
     return () => {
       cancelled = true;
       controller.abort();
+      if (handledKeyRef.current === handledKey) handledKeyRef.current = null;
     };
   }, [pathname, queryClient, router, searchParams]);
 

@@ -69,6 +69,10 @@ export async function createWaffoPlanChange(subscription: UserSubscription, newP
     || (current.interval === 'month' && product.interval === 'year' && product.creditsPerPeriod / 12 >= current.creditsPerPeriod)
   const productId = getWaffoProduct(product.id, 'subscription')
   const id = nanoid()
+  const successUrl = new URL('/dashboard', getPaymentSuccessBaseUrl())
+  if (successUrl.protocol !== 'https:') throw new Error('app.payments.checkout.error.unavailable')
+  successUrl.searchParams.set('order_id', id)
+  successUrl.searchParams.set('type', 'subscription')
   await createWaffoOrder({ id, userId: subscription.userId, orderNumber: `WF-${Date.now()}-${nanoid(6)}`,
     productId: product.id, productName: product.name, productType: 'subscription', paymentProvider: 'waffo',
     paymentRequestId: nanoid(), amount: product.price.toFixed(2), currency: product.currency,
@@ -76,17 +80,18 @@ export async function createWaffoPlanChange(subscription: UserSubscription, newP
     metadata: { subscription_interval: product.interval, credits_per_period: product.creditsPerPeriod,
       waffo_origin_subscription_id: subscription.id, waffo_change_type: upgrade ? 'upgrade' : 'downgrade' },
   }, subscription.id)
-  const successUrl = new URL('/dashboard', getPaymentSuccessBaseUrl())
-  if (successUrl.protocol !== 'https:') throw new Error('app.payments.checkout.error.unavailable')
-  successUrl.searchParams.set('order_id', id)
-  successUrl.searchParams.set('type', 'subscription')
-  const session = await waffoRequest<{ sessionId: string; checkoutUrl: string; expiresAt: string }>('/v1/actions/checkout/create-session', {
+  let session: { sessionId: string; checkoutUrl: string; expiresAt: string }
+  try { session = await waffoRequest<typeof session>('/v1/actions/checkout/create-session', {
     productId, currency: product.currency, originOrderId: subscription.providerSubscriptionId,
     changeTiming: upgrade ? 'immediate' : 'next_period', withTrial: false,
     priceSnapshot: { amount: product.price.toFixed(2), taxIncluded: false, taxCategory: getWaffoSettings().taxCategory },
     successUrl: successUrl.toString(), orderMerchantExternalId: id, expiresInSeconds: 1800,
     metadata: { productId: product.id, userId: subscription.userId, originSubscriptionId: subscription.id },
   })
+  } catch (error) {
+    await db.update(waffoOrders).set({ reviewReason: 'checkout_response_unknown', updatedAt: new Date() }).where(eq(waffoOrders.orderId, id))
+    throw error
+  }
   await db.update(waffoOrders).set({ sessionId: session.sessionId, expiresAt: new Date(session.expiresAt) }).where(eq(waffoOrders.orderId, id))
   // Credentials are minted immediately before returning and never stored or logged.
   const { token } = await waffoCustomerToken(original.customerEmail.trim().toLowerCase())

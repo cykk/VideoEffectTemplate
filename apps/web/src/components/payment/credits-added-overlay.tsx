@@ -89,7 +89,7 @@ export function CreditsAddedOverlay() {
                     }, controller.signal);
                     if (!data) { toast.info(paymentMessages.status.message.pending); return; }
                     trackStarterPurchaseCompleted({
-                        dedupeKey: data.order.id, transactionId: data.order.id,
+                        dedupeKey: `${data.order.id}:one_time`, transactionId: data.order.id,
                         value: Number(data.order.amount), currency: data.order.currency,
                         productId: context?.productId, productType: 'one_time',
                         entrySurface: context?.entrySurface,

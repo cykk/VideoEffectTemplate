@@ -5429,12 +5429,12 @@
           "cancelWarning": "Canceling a confirmed plan change does not restore automatic renewal of your previous plan."
         },
         "plan": {
-          "tier1_monthly": "Basic ? monthly",
-          "tier1_yearly": "Basic ? yearly",
-          "tier2_monthly": "Standard ? monthly",
-          "tier2_yearly": "Standard ? yearly",
-          "tier3_monthly": "Pro ? monthly",
-          "tier3_yearly": "Pro ? yearly"
+          "tier1_monthly": "Basic (monthly)",
+          "tier1_yearly": "Basic (yearly)",
+          "tier2_monthly": "Standard (monthly)",
+          "tier2_yearly": "Standard (yearly)",
+          "tier3_monthly": "Pro (monthly)",
+          "tier3_yearly": "Pro (yearly)"
         }
       },
       "status": {
@@ -5442,7 +5442,8 @@
           "pending": "Your payment is awaiting confirmation. Your balance will update after it is confirmed.",
           "review": "Your payment needs review. Please contact support with your order number.",
           "failed": "This payment was not completed.",
-          "confirmed": "Payment confirmed."
+          "confirmed": "Payment confirmed.",
+          "scheduled": "Your plan change is confirmed for the next billing period. Your current plan remains available until then."
         }
       },
       "history": {

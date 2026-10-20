@@ -41,7 +41,6 @@ export function getPaymentConfig(): PaymentConfig {
   const waffoMerchantId = getEnv('WAFFO_MERCHANT_ID')
   const waffoPrivateKey = getEnv('WAFFO_PRIVATE_KEY')
   const waffoWebhookPublicKey = getEnv('WAFFO_WEBHOOK_PUBLIC_KEY')
-  const waffoEnvironment = getEnv('WAFFO_ENV', 'test') || 'test'
   const waffoProducts = parseProductMap(getEnv('WAFFO_PACKS'))
   const waffoEnabled = getEnv('WAFFO_ENABLED') === 'true' && Boolean(waffoMerchantId && waffoPrivateKey)
 

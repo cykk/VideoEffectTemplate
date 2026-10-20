@@ -24,8 +24,13 @@ async function testDatabase() {
   const kit = require('drizzle-kit/api');
   const schema = require('../../packages/server/src/lib/db/schema/index.ts');
   const pg = new PGlite();
-  const statements = await kit.generateMigration(kit.generateDrizzleJson({}), kit.generateDrizzleJson(schema));
+  const previous = JSON.parse(fs.readFileSync(path.join(root, 'drizzle/meta/20260917021114_snapshot.json'), 'utf8'));
+  const current = JSON.parse(fs.readFileSync(path.join(root, 'drizzle/meta/20261021000000_snapshot.json'), 'utf8'));
+  const drift = await kit.generateMigration(current, kit.generateDrizzleJson(schema));
+  if (drift.length) throw new Error('Waffo migration snapshot does not match the current schema');
+  const statements = await kit.generateMigration(kit.generateDrizzleJson({}), previous);
   await pg.exec(statements.join('\n'));
+  await pg.exec(fs.readFileSync(path.join(root, 'drizzle/20261021000000_waffo_payments.sql'), 'utf8'));
   const db = drizzle(pg, { schema: schema.schema });
   mocks.set('@markless/server/src/lib/db/client', { db });
   return { db, pg, schema };

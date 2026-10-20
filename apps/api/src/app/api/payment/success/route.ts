@@ -193,6 +193,7 @@ export async function POST(request: NextRequest) {
       success: true,
       settled: currentOrder.status === 'paid' && (currentOrder.paymentProvider !== 'waffo' || Boolean(waffo?.fulfilledAt)),
       requiresReview: Boolean(waffo?.reviewReason),
+      scheduled: currentOrder.status === 'pending' && waffo?.metadata.planChangeScheduled === true,
       order: {
         id: currentOrder.id,
         orderNumber: currentOrder.orderNumber,

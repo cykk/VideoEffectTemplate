@@ -88,6 +88,11 @@ async function processRefund(tx: Tx, event: WaffoEvent, order: Order) {
   if (!data.paymentId || !data.refundStatus) throw new Error('Invalid refund event')
   const amount = data.refundedAmount || data.amount
   if (moneyUnits(amount) <= BigInt(0) || data.currency !== order.currency) throw new Error('Invalid refund amount or currency')
+  const [existingRefund] = await tx.select().from(waffoRefunds).where(and(eq(waffoRefunds.mode, event.mode),
+    eq(waffoRefunds.storeId, event.storeId), eq(waffoRefunds.refundId, event.eventId)))
+  if (existingRefund && (existingRefund.orderId !== order.id || existingRefund.paymentId !== data.paymentId
+    || moneyUnits(existingRefund.amount) !== moneyUnits(amount))) throw new Error('Refund receipt identity mismatch')
+  if (existingRefund?.status === 'succeeded' && data.refundStatus !== 'succeeded') return
   await tx.insert(waffoRefunds).values({ id: nanoid(), orderId: order.id, mode: event.mode, storeId: event.storeId,
     refundId: event.eventId, paymentId: data.paymentId, amount, currency: data.currency,
     status: data.refundStatus, payload: event, creditStatus: data.refundStatus === 'succeeded' ? 'review' : 'not_required',
@@ -144,6 +149,10 @@ async function applyEvent(tx: Tx, event: WaffoEvent) {
       paymentId: data.paymentId, remoteOrderId: data.orderId, currency: data.currency, subtotal: data.listPrice?.subtotal,
       total: data.listPrice?.total, tax: data.listPrice?.taxAmount, charged: data.chargedAmount,
       periodNumber: data.periodNumber, payload: event }).onConflictDoNothing()
+    const [receipt] = await tx.select().from(waffoPayments).where(and(eq(waffoPayments.mode, event.mode),
+      eq(waffoPayments.storeId, event.storeId), eq(waffoPayments.paymentId, data.paymentId)))
+    if (!receipt || receipt.orderId !== order.id || receipt.remoteOrderId !== data.orderId || receipt.currency !== data.currency
+      || receipt.periodNumber !== (data.periodNumber ?? null)) throw new Error('Payment receipt identity mismatch')
     const previousRefunds = await tx.select().from(waffoRefunds).where(and(eq(waffoRefunds.orderId, order.id), eq(waffoRefunds.status, 'succeeded')))
     for (const refund of previousRefunds) await processRefund(tx, refund.payload as WaffoEvent, order)
     if (order.productType === 'subscription') { await grantSubscription(tx, order, link); return }
@@ -177,6 +186,7 @@ async function applyEvent(tx: Tx, event: WaffoEvent) {
     return
   }
   if (event.eventType === 'subscription.plan_change_scheduled') {
+    await tx.update(waffoOrders).set({ lastEventAt: eventTime, metadata: { ...link.metadata, planChangeScheduled: true } }).where(eq(waffoOrders.orderId, order.id))
     const originId = (order.metadata as Record<string, unknown>).waffo_origin_subscription_id as string
     if (originId) await tx.update(userSubscriptions).set({ scheduledPlanId: order.productId, scheduledPlanName: order.productName,
       scheduledCreditsPerPeriod: Number((order.metadata as Record<string, unknown>).credits_per_period),
