@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 
 const base = process.env.WORKERS_SMOKE_URL || "http://127.0.0.1:8787";
 const checks = [
-  ["/", 200],
+  ["/", 307, "/dashboard"],
   ["/blog", 200],
-  ["/blog/how-to-transcribe-mp3", 200],
+  ["/pricing", 200],
   ["/login", 200],
   ["/dashboard", 200],
   ["/en/blog", 308, "/blog"],
@@ -29,9 +29,6 @@ for (const [path, status, location] of checks) {
       const assetResponse = await fetch(new URL(asset[1], base));
       assert.equal(assetResponse.status, 200, `${path}: missing asset ${asset[1]}`);
     }
-  }
-  if (path === "/blog/how-to-transcribe-mp3") {
-    assert.match(body, /transcribe/i, "Blog content was not bundled");
   }
 }
 console.log("Workers HTTP smoke checks passed.");

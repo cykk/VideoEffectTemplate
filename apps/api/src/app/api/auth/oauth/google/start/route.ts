@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { getEnv } from "@markless/shared/src/lib/config/env";
+import { getDictionary } from "@markless/shared/src/i18n";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+const oauthErrors = getDictionary().app.auth.oauth.start.error;
 
 function normalizeBaseUrl(value?: string): string | null {
   if (!value) {
@@ -76,7 +78,7 @@ export async function GET(request: NextRequest): Promise<Response> {
   const callbackURL = request.nextUrl.searchParams.get("callbackURL")?.trim();
   if (!callbackURL) {
     return NextResponse.json(
-      { error: "Missing callbackURL" },
+      { error: oauthErrors.missingCallback },
       { status: 400 },
     );
   }
@@ -91,7 +93,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     });
 
     return NextResponse.json(
-      { error: "Invalid callbackURL" },
+      { error: oauthErrors.invalidCallback },
       { status: 400 },
     );
   }
@@ -100,7 +102,7 @@ export async function GET(request: NextRequest): Promise<Response> {
   if (!authBaseUrl) {
     console.error("[AuthDebug][Start] Auth base URL is not configured");
     return NextResponse.json(
-      { error: "Auth service is not configured" },
+      { error: oauthErrors.notConfigured },
       { status: 500 },
     );
   }
@@ -129,7 +131,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     });
 
     return NextResponse.json(
-      { error: "Failed to start OAuth" },
+      { error: oauthErrors.startFailed },
       { status: 500 },
     );
   }
@@ -151,7 +153,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     });
 
     return NextResponse.json(
-      { error: "Invalid Better Auth response" },
+      { error: oauthErrors.invalidResponse },
       { status: 500 },
     );
   }

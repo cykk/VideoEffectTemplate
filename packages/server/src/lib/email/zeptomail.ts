@@ -333,10 +333,10 @@ export async function sendMagicLinkEmail(
         subject: copy.subject,
         htmlbody: html,
         textbody: text,
-        replyTo: {
-            address: `support@${BRAND_CONFIG.siteDomain}`,
+        replyTo: BRAND_CONFIG.supportEmail ? {
+            address: BRAND_CONFIG.supportEmail,
             name: copy.senderName,
-        },
+        } : undefined,
     });
 }
 

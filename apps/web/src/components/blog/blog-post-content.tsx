@@ -48,13 +48,7 @@ export function BlogPostContent({
 
         <BlogPostCTA
           locale={locale}
-          content={
-            post.slug === "how-to-transcribe-mp3"
-              ? dictionary.mp3TranscriptionCta
-              : post.slug === "mp3-transcripts-show-notes-newsletters"
-                ? dictionary.podcastContentCta
-              : dictionary.cta
-          }
+          content={dictionary.cta}
         />
       </article>
     </div>

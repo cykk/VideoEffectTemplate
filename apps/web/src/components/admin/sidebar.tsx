@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@markless/shared/src/lib/utils";
-import { LayoutDashboard, Users, Receipt, Repeat, Activity, ImageOff, TriangleAlert, FileAudio2 } from "lucide-react";
+import { LayoutDashboard, Users, Receipt, Repeat, Activity, ImageOff, Sparkles } from "lucide-react";
 import { useLocale } from "@/hooks/use-locale";
 
 export function AdminSidebar() {
@@ -13,6 +13,7 @@ export function AdminSidebar() {
   const pathname = usePathname();
 
   const sidebarItems = [
+    { title: 'AI jobs', href: '/admin/ai-jobs', icon: Sparkles },
     { title: 'Waffo payments', href: '/admin/payments/waffo', icon: Receipt },
     {
       title: dict.nav.overview.label,
@@ -36,19 +37,9 @@ export function AdminSidebar() {
       icon: Receipt,
     },
     {
-      title: dict.nav.transcriptions.label,
-      href: "/admin/transcriptions",
-      icon: FileAudio2,
-    },
-    {
       title: dict.nav.contactMessages.label,
       href: "/admin/contact-messages",
       icon: ImageOff,
-    },
-    {
-      title: "Failure Archives",
-      href: "/admin/transcription-failures",
-      icon: TriangleAlert,
     },
     {
       title: dict.nav.system.label,

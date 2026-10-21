@@ -24,28 +24,10 @@ type SitemapPageConfig = {
 // Update these when page content changes significantly.
 const PUBLIC_PAGES: readonly SitemapPageConfig[] = [
   {
-    path: "",
-    priority: 1.0,
-    changeFrequency: "weekly",
-    lastModified: new Date("2026-08-06"),
-  },
-  {
     path: "pricing",
     priority: 0.6,
     changeFrequency: "weekly",
     lastModified: new Date("2026-07-10"),
-  },
-  {
-    path: "mp3-to-srt",
-    priority: 0.8,
-    changeFrequency: "weekly",
-    lastModified: new Date("2026-09-22"),
-  },
-  {
-    path: "m4a-to-text",
-    priority: 0.8,
-    changeFrequency: "weekly",
-    lastModified: new Date("2026-09-22"),
   },
 ] as const;
 

@@ -12,7 +12,6 @@ export async function GET(req: NextRequest) {
     const response = successResponse({
       authenticated: data.authenticated,
       user: data.user,
-      freeTranscription: data.freeTranscription,
       credits: data.credits,
       creditsBreakdown: data.creditsBreakdown,
       subscription: data.subscription,

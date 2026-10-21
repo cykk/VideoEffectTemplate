@@ -28,11 +28,10 @@ export function LogoMark(props: React.SVGProps<SVGSVGElement>) {
       aria-hidden="true"
       {...props}
     >
-      <rect x="3.5" y="13" width="2.5" height="5" rx="1.25" fill="currentColor" />
-      <rect x="7.5" y="7" width="2.5" height="16" rx="1.25" fill="currentColor" />
-      <rect x="11.5" y="10" width="2.5" height="10" rx="1.25" fill="currentColor" />
-      <rect x="18.5" y="10" width="7" height="2.5" rx="1.25" fill="currentColor" />
-      <rect x="18.5" y="15.5" width="5" height="2.5" rx="1.25" fill="currentColor" />
+      <rect x="3" y="3" width="9" height="9" rx="2" fill="currentColor" />
+      <rect x="16" y="3" width="9" height="9" rx="2" fill="currentColor" opacity="0.6" />
+      <rect x="3" y="16" width="9" height="9" rx="2" fill="currentColor" opacity="0.6" />
+      <rect x="16" y="16" width="9" height="9" rx="2" fill="currentColor" />
     </svg>
   );
 }

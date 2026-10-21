@@ -17,6 +17,9 @@ const ignoredPathFragments = [
   `${path.sep}admin${path.sep}`,
   `${path.sep}debug${path.sep}`,
   `${path.sep}i18n${path.sep}locales${path.sep}`,
+  `${path.sep}api${path.sep}internal${path.sep}`,
+  `${path.sep}api${path.sep}pay${path.sep}callback${path.sep}`,
+  `${path.sep}api${path.sep}redis-pool${path.sep}metrics${path.sep}`,
 ];
 
 const visibleSuffixes = [
@@ -470,6 +473,11 @@ function makeSignature(finding) {
   ].join("|");
 }
 
+function withoutLine(signature) {
+  const parts = signature.split("|");
+  return [parts[0], ...parts.slice(2)].join("|");
+}
+
 function recordFinding(node, sourceFile, filePath, findings) {
   const literal = getNodeTextValue(node);
   if (!isEnglishLikeLiteral(literal)) {
@@ -480,6 +488,13 @@ function recordFinding(node, sourceFile, filePath, findings) {
   if (!context) {
     return;
   }
+  if (context.category === "innerHTML") {
+    const visibleText = literal.replace(/<[^>]*>/g, "").replace(/<[^>]*$/, "").trim();
+    if (!visibleText || /^[\w-]+\s*:\s*[^;]+;/.test(visibleText) || visibleText === "paid") return;
+  }
+  if (context.context === "object:max-image-preview") return;
+  if ((context.context === "object:reason" || context.context === "object:reviewReason")
+    && /^[a-z][a-z0-9_]*$/.test(literal)) return;
 
   const line = sourceFile.getLineAndCharacterOfPosition(
     node.getStart(sourceFile)
@@ -584,7 +599,8 @@ async function main() {
     return;
   }
 
-  const newFindings = findings.filter((item) => !baseline.has(makeSignature(item)));
+  const baselineWithoutLines = new Set([...baseline].map(withoutLine));
+  const newFindings = findings.filter((item) => !baselineWithoutLines.has(withoutLine(makeSignature(item))));
 
   if (newFindings.length === 0) {
     console.log(

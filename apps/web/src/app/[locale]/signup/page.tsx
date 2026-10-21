@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { AuthPageContent } from "@/components/auth/auth-page-content";
 import { getDictionary, locales, defaultLocale } from "@markless/shared/src/i18n";
-import { formatFreeTierCopy } from "@markless/shared/src/lib/marketing/free-tier-copy";
 import { getWebBaseUrl } from "@markless/shared/src/lib/config/urls";
 import { buildMetadataTitle } from "@/lib/metadata";
 
@@ -41,7 +40,7 @@ export async function generateMetadata({ params }: LocaleSignupPageProps) {
         const fallback = getDictionary(defaultLocale);
         return {
             title: buildMetadataTitle(fallback.pages.signup.title, fallback),
-            description: formatFreeTierCopy(fallback.pages.signup.description),
+            description: fallback.pages.signup.description,
             alternates: {
                 canonical: `${getWebBaseUrl()}/signup`,
             },
@@ -61,7 +60,7 @@ export async function generateMetadata({ params }: LocaleSignupPageProps) {
 
     return {
         title: buildMetadataTitle(dictionary.pages.signup.title, dictionary),
-        description: formatFreeTierCopy(dictionary.pages.signup.description),
+        description: dictionary.pages.signup.description,
         alternates: {
             canonical: pageUrl,
         },

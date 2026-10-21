@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { resolveIntlLocale } from "@markless/shared/src/i18n/locale-config";
 import { getInvoiceDictionary } from "@markless/shared/src/i18n/pages/payment";
 import { BRAND_CONFIG } from "@markless/shared/src/lib/config/brand";
+import { usePublicBrand } from "@/components/providers/public-brand-provider";
 import type { Locale } from "@markless/shared/src/i18n/types";
 
 const INVOICE_BRAND_HEADING_STYLE =
@@ -36,6 +37,7 @@ export function InvoiceDownloadButton({
   paymentMethod,
   locale,
 }: InvoiceDownloadButtonProps) {
+  const { supportEmail, siteDomain } = usePublicBrand();
   const [isGenerating, setIsGenerating] = useState(false);
   const copy = getInvoiceDictionary(locale);
   const intlLocale = resolveIntlLocale(locale);
@@ -66,8 +68,8 @@ export function InvoiceDownloadButton({
             <div>
               <h1 style="${INVOICE_BRAND_HEADING_STYLE}">${BRAND_CONFIG.primaryName}</h1>
               <p style="color: rgb(107 114 128); font-size: 14px; margin: 4px 0;">${copy.companySubtitle}</p>
-              <p style="color: rgb(107 114 128); font-size: 14px; margin: 4px 0;">support@${BRAND_CONFIG.siteDomain}</p>
-              <p style="color: rgb(107 114 128); font-size: 14px; margin: 4px 0;">www.${BRAND_CONFIG.siteDomain}</p>
+              ${supportEmail ? `<p style="color: rgb(107 114 128); font-size: 14px; margin: 4px 0;">${supportEmail}</p>` : ""}
+              <p style="color: rgb(107 114 128); font-size: 14px; margin: 4px 0;">${siteDomain}</p>
             </div>
             <div style="text-align: right;">
               <h2 style="font-size: 28px; font-weight: 600; margin-bottom: 12px;">${copy.title}</h2>

@@ -87,12 +87,12 @@ function PaymentFailedContent({ dictionary, locale }: { dictionary: PaymentFaile
               >
                 {dictionary.actions.tryAgain}
               </Link>
-              <Link
-                href={`mailto:support@${BRAND_CONFIG.siteDomain}`}
+              {BRAND_CONFIG.supportEmail ? <Link
+                href={`mailto:${BRAND_CONFIG.supportEmail}`}
                 className="block w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-4 py-3 text-center text-sm font-semibold text-neutral-900 dark:text-neutral-100 shadow-sm hover:bg-neutral-50 dark:hover:bg-neutral-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
               >
                 {dictionary.actions.contactSupport}
-              </Link>
+              </Link> : null}
               <Link
                 href={resolveHref(locale, "/pricing")}
                 className="block w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-4 py-3 text-center text-sm font-semibold text-neutral-900 dark:text-neutral-100 shadow-sm hover:bg-neutral-50 dark:hover:bg-neutral-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"

@@ -13,7 +13,7 @@ export async function generateMetadata({
   const resolvedParams = await params;
   const locale = resolvedParams.locale as Locale;
   const dictionary = getDictionary(locale);
-  const page = dictionary.pages.dashboard;
+  const page = dictionary.app.ai.jobs.page;
   const pageUrl = `${getWebBaseUrl()}/dashboard`;
 
   return {

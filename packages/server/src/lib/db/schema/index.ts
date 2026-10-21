@@ -9,6 +9,7 @@ import * as contactMessages from "./contact-messages";
 import * as transcriptions from "./transcriptions";
 import * as redemptionCodes from "./redemption-codes";
 import * as waffo from "./waffo";
+import * as aiJobs from "./ai-jobs";
 
 export const schema = {
   users,
@@ -22,6 +23,7 @@ export const schema = {
   ...transcriptions,
   ...redemptionCodes,
   ...waffo,
+  ...aiJobs,
 };
 
 export type Schema = typeof schema;
@@ -37,3 +39,4 @@ export * from "./contact-messages";
 export * from "./transcriptions";
 export * from "./redemption-codes";
 export * from "./waffo";
+export * from "./ai-jobs";

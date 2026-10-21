@@ -21,6 +21,17 @@
 
 import type { ProductType, SubscriptionInterval } from '@markless/shared/src/lib/payments'
 import { getEnv } from '@markless/shared/src/lib/config/env'
+import enDictionary from '@markless/shared/src/i18n/locales/en.json'
+
+const catalogCopy = enDictionary.app.billing.catalog
+const fillCredits = (template: string, credits: number) => template.replace('{credits}', String(credits))
+const planPeriod = (interval: SubscriptionInterval) => catalogCopy.period[interval === 'year' ? 'yearly' : 'monthly']
+const planName = (credits: number, interval: SubscriptionInterval) =>
+    fillCredits(catalogCopy.plan.name, credits).replace('{period}', planPeriod(interval))
+const planDescription = (credits: number, interval: SubscriptionInterval) =>
+    fillCredits(catalogCopy.plan.description, credits).replace('{period}', planPeriod(interval))
+const packName = (credits: number) => fillCredits(catalogCopy.pack.name, credits)
+const packDescription = (credits: number) => fillCredits(catalogCopy.pack.description, credits)
 
 /** 基础产品配置 */
 export interface BaseProduct {
@@ -72,28 +83,9 @@ export type UserPricingTier = 'free' | 'monthly_subscriber' | 'yearly_subscriber
 
 // 功能列表常量 - 与 i18n-config.ts 保持一致
 // 所有订阅计划共享的核心功能
-const CORE_FEATURES = [
-    'Authentication-ready user flows',
-    'Payments and subscriptions foundation',
-    'Realtime task infrastructure',
-    'Admin and membership surfaces',
+const getFeatures = (creditsPerMonth: number): string[] => [
+    fillCredits(catalogCopy.feature.monthlyCredits, creditsPerMonth),
 ]
-
-// 根据积分数生成功能列表
-const getFeatures = (creditsPerMonth: number): string[] => {
-    const parallelTasks = creditsPerMonth >= 5000 ? 5 : 3
-    const estimatedVideoMinutes = Math.floor(creditsPerMonth / 30) // 30 credits/min
-    const estimatedImages = Math.floor(creditsPerMonth / 2)        // 2 credits/image
-
-    return [
-        `${creditsPerMonth} minutes of transcription per month`,
-        `Scales to ${parallelTasks} concurrent task workers`,
-        `Supports ${estimatedVideoMinutes}+ runtime minutes of async processing`,
-        `Supports ${estimatedImages}+ lightweight task executions`,
-        `${parallelTasks} Parallel tasks`,
-        ...CORE_FEATURES,
-    ]
-}
 
 /** 订阅计划列表 - 3 个档位，每个档位有年付和月付 */
 export const subscriptionPlans: SubscriptionProduct[] = [
@@ -102,8 +94,8 @@ export const subscriptionPlans: SubscriptionProduct[] = [
         id: 'tier1:yearly',
         type: 'subscription',
         tierName: 'Basic',
-        name: '800 Minutes of Transcription Yearly',
-        description: 'Basic yearly plan at $5/mo billed yearly',
+        name: planName(800, 'year'),
+        description: planDescription(800, 'year'),
         price: 60,
         currency: 'USD',
         interval: 'year',
@@ -116,8 +108,8 @@ export const subscriptionPlans: SubscriptionProduct[] = [
         id: 'tier1:monthly',
         type: 'subscription',
         tierName: 'Basic',
-        name: '800 Minutes of Transcription Monthly',
-        description: 'Basic monthly plan with 800 minutes of transcription every month',
+        name: planName(800, 'month'),
+        description: planDescription(800, 'month'),
         price: 9,
         currency: 'USD',
         interval: 'month',
@@ -132,8 +124,8 @@ export const subscriptionPlans: SubscriptionProduct[] = [
         id: 'tier2:yearly',
         type: 'subscription',
         tierName: 'Standard',
-        name: '2000 Minutes of Transcription Yearly',
-        description: 'Standard yearly plan at $10/mo billed yearly',
+        name: planName(2000, 'year'),
+        description: planDescription(2000, 'year'),
         price: 120,
         currency: 'USD',
         interval: 'year',
@@ -146,8 +138,8 @@ export const subscriptionPlans: SubscriptionProduct[] = [
         id: 'tier2:monthly',
         type: 'subscription',
         tierName: 'Standard',
-        name: '2000 Minutes of Transcription Monthly',
-        description: 'Standard monthly plan with 2000 minutes of transcription every month',
+        name: planName(2000, 'month'),
+        description: planDescription(2000, 'month'),
         price: 18,
         currency: 'USD',
         interval: 'month',
@@ -162,8 +154,8 @@ export const subscriptionPlans: SubscriptionProduct[] = [
         id: 'tier3:yearly',
         type: 'subscription',
         tierName: 'Pro',
-        name: '6000 Minutes of Transcription Yearly',
-        description: 'Pro yearly plan at $20/mo billed yearly',
+        name: planName(6000, 'year'),
+        description: planDescription(6000, 'year'),
         price: 240,
         currency: 'USD',
         interval: 'year',
@@ -176,8 +168,8 @@ export const subscriptionPlans: SubscriptionProduct[] = [
         id: 'tier3:monthly',
         type: 'subscription',
         tierName: 'Pro',
-        name: '6000 Minutes of Transcription Monthly',
-        description: 'Pro monthly plan with 6000 minutes of transcription every month',
+        name: planName(6000, 'month'),
+        description: planDescription(6000, 'month'),
         price: 36,
         currency: 'USD',
         interval: 'month',
@@ -192,8 +184,8 @@ export const subscriptionPlans: SubscriptionProduct[] = [
         id: 'tier7:yearly',
         type: 'subscription',
         tierName: 'Enterprise',
-        name: '10000 Minutes of Transcription Yearly',
-        description: 'Enterprise yearly plan at $166/mo billed yearly (Save $600/year)',
+        name: planName(10000, 'year'),
+        description: planDescription(10000, 'year'),
         price: 1992, // $166 * 12
         currency: 'USD',
         interval: 'year',
@@ -206,8 +198,8 @@ export const subscriptionPlans: SubscriptionProduct[] = [
         id: 'tier7:monthly',
         type: 'subscription',
         tierName: 'Enterprise',
-        name: '10000 Minutes of Transcription Monthly',
-        description: 'Enterprise monthly plan with 10000 minutes of transcription every month',
+        name: planName(10000, 'month'),
+        description: planDescription(10000, 'month'),
         price: 216,
         currency: 'USD',
         interval: 'month',
@@ -222,8 +214,8 @@ export const subscriptionPlans: SubscriptionProduct[] = [
         id: 'tier8:yearly',
         type: 'subscription',
         tierName: 'Ultimate',
-        name: '20000 Minutes of Transcription Yearly',
-        description: 'Ultimate yearly plan at $296/mo billed yearly (Save $1068/year)',
+        name: planName(20000, 'year'),
+        description: planDescription(20000, 'year'),
         price: 3552, // $296 * 12
         currency: 'USD',
         interval: 'year',
@@ -236,8 +228,8 @@ export const subscriptionPlans: SubscriptionProduct[] = [
         id: 'tier8:monthly',
         type: 'subscription',
         tierName: 'Ultimate',
-        name: '20000 Minutes of Transcription Monthly',
-        description: 'Ultimate monthly plan with 20000 minutes of transcription every month',
+        name: planName(20000, 'month'),
+        description: planDescription(20000, 'month'),
         price: 385,
         currency: 'USD',
         interval: 'month',
@@ -253,8 +245,8 @@ export const creditPackages: CreditPackage[] = [
     {
         id: 'credit_pack_800',
         type: 'one_time',
-        name: '800 Minutes of Transcription',
-        description: 'One-time purchase of 800 minutes of transcription',
+        name: packName(800),
+        description: packDescription(800),
         price: 15,
         currency: 'USD',
         credits: 800,
@@ -269,8 +261,8 @@ export const creditPackages: CreditPackage[] = [
     {
         id: 'credit_pack_2000',
         type: 'one_time',
-        name: '2000 Minutes of Transcription',
-        description: 'One-time purchase of 2000 minutes of transcription',
+        name: packName(2000),
+        description: packDescription(2000),
         price: 30,
         currency: 'USD',
         credits: 2000,

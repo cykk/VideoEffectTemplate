@@ -6,12 +6,7 @@ import { defaultLocale } from "@markless/shared/src/i18n";
 const POST_AUTH_INTENT_KEY = "post-auth-intent";
 const PENDING_CHECKOUT_CONTEXT_KEY = "pending-checkout-context";
 
-export type PostAuthIntent = "go_dashboard" | "resume_checkout" | "resume_upgrade" | "transcription_save";
-
-export type GuestLimitUsageSnapshot = {
-    used: number;
-    limit: number;
-};
+export type PostAuthIntent = "go_dashboard" | "resume_checkout" | "resume_upgrade";
 
 export interface PendingCheckoutContext {
     productId: string;
@@ -90,8 +85,6 @@ export function buildCheckoutResumeUrl(locale?: string | null): string {
  */
 export function useAuthAction() {
     const [showAuthModal, setShowAuthModal] = useState(false);
-    const [showGuestLimitAuthModal, setShowGuestLimitAuthModal] = useState(false);
-    const [guestLimitUsage, setGuestLimitUsage] = useState<GuestLimitUsageSnapshot | null>(null);
     const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
 
     /**
@@ -142,17 +135,6 @@ export function useAuthAction() {
     /**
      * 打开游客次数用尽专用注册弹窗
      */
-    const openGuestLimitSignUp = useCallback((
-        usage: GuestLimitUsageSnapshot,
-        intent: PostAuthIntent = "go_dashboard",
-        redirectTo?: string | null
-    ) => {
-        setOAuthCallback(redirectTo);
-        setPostAuthIntent(intent);
-        setAuthMode('signup');
-        setGuestLimitUsage(usage);
-        setShowGuestLimitAuthModal(true);
-    }, [setOAuthCallback, setPostAuthIntent]);
 
     /**
      * 关闭认证弹窗
@@ -161,23 +143,12 @@ export function useAuthAction() {
         setShowAuthModal(open);
     }, []);
 
-    const closeGuestLimitAuth = useCallback((open: boolean) => {
-        setShowGuestLimitAuthModal(open);
-        if (!open) {
-            setGuestLimitUsage(null);
-        }
-    }, []);
-
     return {
         showAuthModal,
-        showGuestLimitAuthModal,
-        guestLimitUsage,
         authMode,
         openLogin,
         openSignUp,
-        openGuestLimitSignUp,
         closeAuth,
-        closeGuestLimitAuth,
         setAuthMode,
     };
 }
@@ -187,8 +158,7 @@ export function readPostAuthIntent(): PostAuthIntent | null {
     const value = localStorage.getItem(POST_AUTH_INTENT_KEY);
     return value === "go_dashboard" ||
         value === "resume_checkout" ||
-        value === "resume_upgrade" ||
-        value === "transcription_save"
+        value === "resume_upgrade"
         ? value
         : null;
 }

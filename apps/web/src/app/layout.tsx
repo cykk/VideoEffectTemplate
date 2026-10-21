@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { AppShell } from "@/components/layout/app-shell";
 import { ClientProviders } from "@/components/providers/client-providers";
+import { PublicBrandProvider } from "@/components/providers/public-brand-provider";
+import { BRAND_CONFIG } from "@markless/shared/src/lib/config/brand";
 import { getDictionary } from "@markless/shared/src/i18n";
 import { defaultLocale } from "@markless/shared/src/i18n/types";
 import { getMetadataBaseUrl, getMetadataSiteName, buildBrandedMetadataTitle } from "@/lib/metadata";
@@ -45,7 +47,9 @@ export default function RootLayout({
     <html lang={defaultLocale} className={inter.variable} suppressHydrationWarning>
       <body className="antialiased" suppressHydrationWarning>
         <ClientProviders>
-          <AppShell>{children}</AppShell>
+          <PublicBrandProvider supportEmail={BRAND_CONFIG.supportEmail} siteDomain={BRAND_CONFIG.siteDomain}>
+            <AppShell>{children}</AppShell>
+          </PublicBrandProvider>
         </ClientProviders>
       </body>
     </html>

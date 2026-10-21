@@ -111,12 +111,12 @@ export function SettingsSidebar({ locale }: SettingsSidebarProps) {
       <div className="fixed left-0 right-0 top-0 z-40 border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950 lg:hidden">
         <div className="flex items-center justify-between px-4 py-3">
           <div className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-            {labels.mobile?.title || "Settings"}
+            {labels.mobile.title}
           </div>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="flex min-h-[44px] min-w-[44px] touch-manipulation items-center justify-center rounded-lg p-2 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
-            aria-label={isMobileMenuOpen ? labels.actions?.close_menu || "Close menu" : labels.actions?.open_menu || "Open menu"}
+            aria-label={isMobileMenuOpen ? labels.actions.close_menu : labels.actions.open_menu}
           >
             {isMobileMenuOpen ? (
               <X className="h-6 w-6" />

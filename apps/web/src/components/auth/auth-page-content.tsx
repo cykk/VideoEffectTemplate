@@ -9,8 +9,6 @@ import { AuthForm } from "@/components/auth/auth-form";
 import { AuthOfferDescription } from "@/components/auth/auth-offer-description";
 import { useLocale } from "@/hooks/use-locale";
 import { buildDashboardUrl } from "@/hooks/use-auth-action";
-import { useUserBootstrap } from "@/hooks/use-user-bootstrap";
-import { formatFreeTierCopy } from "@markless/shared/src/lib/marketing/free-tier-copy";
 
 interface AuthPageContentProps {
     mode: "signin" | "signup";
@@ -23,12 +21,6 @@ export function AuthPageContent({ mode }: AuthPageContentProps) {
     const returnTo = searchParams.get("returnTo");
     const modalDictionary = dictionary.tools.authModal as AuthModalDictionary;
     const [isSuccess, setIsSuccess] = useState(false);
-    const { data: bootstrap } = useUserBootstrap();
-    const freeTierValues = {
-        authenticatedDailyLimit: bootstrap?.freeTranscription.authenticated.dailyLimit,
-        authenticatedDurationLimitMinutes:
-            bootstrap?.freeTranscription.authenticated.durationLimitMinutes,
-    };
 
     const homeHref = locale === "en" ? "/" : `/${locale}`;
     const alternateAuthHref =
@@ -38,7 +30,7 @@ export function AuthPageContent({ mode }: AuthPageContentProps) {
     const headerCopy = mode === "signup"
         ? {
             title: modalDictionary.signup.fallbackTitle,
-            description: formatFreeTierCopy(modalDictionary.signup.fallbackDescription, freeTierValues),
+            description: modalDictionary.signup.fallbackDescription,
         }
         : { title: modalDictionary.signin.title, description: modalDictionary.signin.description };
 

@@ -19,19 +19,6 @@ export function isAnalyticsExcludedPath(pathname: string | null): boolean {
 export function normalizeAnalyticsPathname(pathname: string | null): string {
   const path = pathname || "/";
 
-  if (/^\/share\/[^/]+\/?$/.test(path)) {
-    return "/share/[token]";
-  }
-  if (/^\/[^/]+\/share\/[^/]+\/?$/.test(path)) {
-    return "/share/[token]";
-  }
-  if (/^\/transcriptions\/[^/]+\/?$/.test(path)) {
-    return "/transcriptions/[id]";
-  }
-  if (/^\/[^/]+\/transcriptions\/[^/]+\/?$/.test(path)) {
-    return "/transcriptions/[id]";
-  }
-
   return path;
 }
 

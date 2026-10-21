@@ -62,6 +62,10 @@ next-env.d.ts
 .cache/
 .env.web.cloudflare
 .env.web.cloudflare.production
+
+# env SSOT secrets (manifest is committed)
+/env/values/local.json
+/env/values/production.json
 /apps/api/.next-api/
 /.cache/
 /ml/assets/

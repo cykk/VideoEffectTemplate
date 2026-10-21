@@ -1,14 +1,6 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import {
-  DEFAULT_AUTHENTICATED_FREE_TRANSCRIPTION_DURATION_LIMIT_MINUTES,
-  DEFAULT_FREE_TRANSCRIPTION_DURATION_LIMIT_MINUTES,
-} from "@markless/shared/src/lib/transcriptions/free-transcription-config";
-import {
-  DEFAULT_ANONYMOUS_FREE_TRANSCRIPTION_DAILY_LIMIT,
-  DEFAULT_AUTHENTICATED_FREE_TRANSCRIPTION_DAILY_LIMIT,
-} from "@markless/shared/src/lib/transcriptions/free-usage-constants";
 import { apiFetch } from "@markless/shared/src/lib/http/client";
 import type { UserEntitlements } from "@markless/shared/src/types/user-entitlements";
 
@@ -23,10 +15,6 @@ type UserBootstrapUser = {
 type UserBootstrapData = {
   authenticated: boolean;
   user: UserBootstrapUser | null;
-  freeTranscription: {
-    anonymous: { dailyLimit: number; durationLimitMinutes: number };
-    authenticated: { dailyLimit: number; durationLimitMinutes: number };
-  };
   credits: number;
   creditsBreakdown: {
     totalBalance: number;
@@ -61,10 +49,6 @@ export const USER_BOOTSTRAP_QUERY_KEY = ["user-bootstrap"] as const;
 export const SIGNED_OUT_BOOTSTRAP: UserBootstrapData = {
   authenticated: false,
   user: null,
-  freeTranscription: {
-    anonymous: { dailyLimit: DEFAULT_ANONYMOUS_FREE_TRANSCRIPTION_DAILY_LIMIT, durationLimitMinutes: DEFAULT_FREE_TRANSCRIPTION_DURATION_LIMIT_MINUTES },
-    authenticated: { dailyLimit: DEFAULT_AUTHENTICATED_FREE_TRANSCRIPTION_DAILY_LIMIT, durationLimitMinutes: DEFAULT_AUTHENTICATED_FREE_TRANSCRIPTION_DURATION_LIMIT_MINUTES },
-  },
   credits: 0,
   creditsBreakdown: null,
   subscription: null,

@@ -34,12 +34,12 @@ export function EmailFooter({
                 </Link>
             </Text>
 
-            <Text style={styles.footerText}>
+            {BRAND_CONFIG.supportEmail ? <Text style={styles.footerText}>
                 {copy.helpPrefix}{' '}
-                <Link href={`mailto:support@${BRAND_CONFIG.siteDomain}`} style={styles.footerLink}>
+                <Link href={`mailto:${BRAND_CONFIG.supportEmail}`} style={styles.footerLink}>
                     {copy.contactSupport}
                 </Link>
-            </Text>
+            </Text> : null}
         </Section>
     );
 }

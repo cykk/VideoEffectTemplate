@@ -6,8 +6,6 @@ import type { AuthModalDictionary } from "@markless/shared/src/i18n/types";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthOfferDescription } from "@/components/auth/auth-offer-description";
 import { cn } from "@markless/shared/src/lib/utils";
-import { formatFreeTierCopy } from "@markless/shared/src/lib/marketing/free-tier-copy";
-import { useUserBootstrap } from "@/hooks/use-user-bootstrap";
 
 interface AuthModalProps {
     open: boolean;
@@ -26,17 +24,11 @@ export function AuthModal({
     dictionary,
 }: AuthModalProps) {
     const [isSuccess, setIsSuccess] = useState(false);
-    const { data: bootstrap } = useUserBootstrap();
-    const freeTierValues = {
-        authenticatedDailyLimit: bootstrap?.freeTranscription.authenticated.dailyLimit,
-        authenticatedDurationLimitMinutes:
-            bootstrap?.freeTranscription.authenticated.durationLimitMinutes,
-    };
 
     const headerCopy = mode === "signup"
         ? {
             title: dictionary.signup.fallbackTitle,
-            description: formatFreeTierCopy(dictionary.signup.fallbackDescription, freeTierValues),
+            description: dictionary.signup.fallbackDescription,
         }
         : { title: dictionary.signin.title, description: dictionary.signin.description };
 

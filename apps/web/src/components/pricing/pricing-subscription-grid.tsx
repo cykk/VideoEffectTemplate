@@ -24,10 +24,6 @@ import { PricingPlanCard } from "@/components/pricing/pricing-plan-card";
 import { SubscriptionChangeConfirmModal } from "@/components/pricing/subscription-change-confirm-modal";
 import type { SubscriptionUpgradeSuccessSummary } from "@/components/pricing/subscription-upgrade-success-modal";
 import { AuthModal } from "@/components/tools/auth-modal";
-import {
-  formatFreeTierCopy,
-  type FreeTierCopyValues,
-} from "@markless/shared/src/lib/marketing/free-tier-copy";
 import { useLocale } from "@/hooks/use-locale";
 import {
   buildCheckoutResumeUrl,
@@ -68,7 +64,6 @@ interface PricingSubscriptionGridProps {
   initialPeriod?: PricingPeriod;
   currentCredits?: number | null;
   showInlineAuthModal?: boolean;
-  freeTierCopyValues?: Partial<FreeTierCopyValues>;
 }
 
 export function PricingSubscriptionGrid({
@@ -89,7 +84,6 @@ export function PricingSubscriptionGrid({
   initialPeriod,
   currentCredits = null,
   showInlineAuthModal = true,
-  freeTierCopyValues,
 }: PricingSubscriptionGridProps) {
   const [selectedPeriod, setSelectedPeriod] = useState<PricingPeriod>(
     initialPeriod ?? "yearly"
@@ -376,9 +370,7 @@ export function PricingSubscriptionGrid({
                   getSubscriptionMonthlyCredits(plan.tierId, selectedPeriod)
                 )
               : baseFeatures;
-          const displayFeatures = isFree
-            ? features.map((feature) => formatFreeTierCopy(feature, freeTierCopyValues))
-            : features;
+          const displayFeatures = features;
           const targetProductId = !isFree && !isOneTimePeriod
             ? getCheckoutProductId(plan.tierId!, selectedPeriod)
             : null;

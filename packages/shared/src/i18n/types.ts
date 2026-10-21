@@ -3085,6 +3085,52 @@ export interface ErrorPagesDictionary {
 }
 
 export interface AppNamespaceDictionary {
+    runtime: { task: { status: { providerName: string } } };
+    auth: {
+        oauth: { start: { error: { missingCallback: string; invalidCallback: string; notConfigured: string; startFailed: string; invalidResponse: string } } };
+    };
+    settings: {
+        billing: {
+            actions: { recharge: string; upgradePlan: string; cancelPlan: string };
+            changeErrors: {
+                noActiveSubscription: string; invalidSubscriptionPlan: string; currentPlanNotFound: string;
+                productInfoNotFound: string; upgradeRequiresHigherTier: string; downgradeRequiresLowerTier: string;
+                planUnavailable: string; onlyCreemSupported: string; previewNotImplemented: string;
+                unsupportedProvider: string; internalPreviewError: string; upgradeRejected: string;
+                downgradeFailed: string; unknown: string;
+            };
+        };
+    };
+    legal: {
+        pending: {
+            privacy: { title: string; description: string };
+            terms: { title: string; description: string };
+        };
+    };
+    events: { stream: { error: { server: string } } };
+    billing: {
+        catalog: {
+            plan: { name: string; description: string };
+            pack: { name: string; description: string };
+            feature: { monthlyCredits: string };
+            period: { monthly: string; yearly: string };
+        };
+    };
+    account: {
+        credits: {
+            badge: { label: string };
+            detail: { title: string; subscription: string; purchased: string; bonus: string };
+            action: { manage: string };
+        };
+    };
+    ai: {
+        jobs: {
+            page: { title: string; description: string; prompt: string; empty: string; disabled: string; loading: string; loadError: string; credits: string };
+            action: { submit: string; download: string; retry: string };
+            status: { reserved: string; starting: string; processing: string; succeeded: string; failed: string; unknown: string };
+            error: { unavailable: string; invalid: string; credits: string; pending: string };
+        };
+    };
     payments: {
         history: { label: { receipt: string; charged: string; tax: string; refunded: string; unconfirmed: string } };
         checkout: { error: { unavailable: string; provider: string; existingSubscription: string } };

@@ -7,5 +7,3 @@ export * from "./orders-page";
 export * from "./subscriptions-page";
 export * from "./system-page";
 export * from "./contact-messages-page";
-export * from "./transcription-failures-page";
-export * from "./transcriptions-page";

@@ -1,4 +1,5 @@
 import { getEnv } from "../config/env";
+import enDictionary from "@markless/shared/src/i18n/locales/en.json";
 import type { TaskRuntimeProvider, TaskRuntimeStatus } from "./types";
 
 function isTriggerConfigured(): boolean {
@@ -15,14 +16,14 @@ export function getTaskRuntimeStatus(): TaskRuntimeStatus {
   if (provider === "trigger") {
     return {
       provider,
-      label: "Trigger.dev",
+      label: enDictionary.app.runtime.task.status.providerName,
       configured: true,
     };
   }
 
   return {
     provider: "none",
-    label: "Trigger.dev",
+    label: enDictionary.app.runtime.task.status.providerName,
     configured: false,
   };
 }

@@ -365,37 +365,6 @@ export async function deleteFromR2(key: string): Promise<void> {
     }
 }
 
-export function generateTranscriptionSourceKey(
-    ownerId: string,
-    extension: string
-): string {
-    const timestamp = Date.now();
-    const random = Math.random().toString(36).substring(2, 15);
-    const safeOwnerId = ownerId.replace(/^\/+|\/+$/g, "");
-    return `private/transcriptions/${safeOwnerId}/source/${timestamp}-${random}.${extension}`;
-}
-
-export function generateTranscriptionDerivedAudioKey(
-    ownerId: string,
-    extension: string
-): string {
-    const timestamp = Date.now();
-    const random = Math.random().toString(36).substring(2, 15);
-    const safeOwnerId = ownerId.replace(/^\/+|\/+$/g, "");
-    return `private/transcriptions/${safeOwnerId}/derived-audio/${timestamp}-${random}.${extension}`;
-}
-
-export function generateTranscriptionRawOutputKey(
-    ownerId: string,
-    suffix: string
-): string {
-    const timestamp = Date.now();
-    const random = Math.random().toString(36).substring(2, 15);
-    const safeOwnerId = ownerId.replace(/^\/+|\/+$/g, "");
-    const safeSuffix = suffix.trim() || random;
-    return `private/transcriptions/${safeOwnerId}/raw-output/${timestamp}-${safeSuffix}.json`;
-}
-
 function isPublicR2Key(key: string): boolean {
     return key.startsWith("public/");
 }

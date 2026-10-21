@@ -32,14 +32,6 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
 
-  if (pathname === "/dashboard/transcriptions" || pathname.startsWith("/dashboard/transcriptions/")) {
-    return withContentLanguage(NextResponse.next(), defaultLocale);
-  }
-
-  if (pathname === "/share" || pathname.startsWith("/share/")) {
-    return withContentLanguage(NextResponse.next(), defaultLocale);
-  }
-
   if (pathname === "/redeem" || pathname.startsWith("/redeem/")) {
     return withContentLanguage(NextResponse.next(), defaultLocale);
   }
@@ -65,6 +57,6 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!admin|api|share(?:/.*)?$|redeem(?:/.*)?$|_next/static|_next/image|favicon.ico|icon\\.svg|icon\\.png|apple-icon\\.png|og-image\\.png|sitemap\\.xml|robots\\.txt|llms\\.txt|startupranking1371684721257210\\.html$|\\.well-known|model-logo|model-video|marketing|images|videos|blog/covers|blog/default-cover\\.svg).*)",
+    "/((?!admin|api|redeem(?:/.*)?$|_next/static|_next/image|favicon.ico|icon\\.svg|icon\\.png|apple-icon\\.png|og-image\\.png|sitemap\\.xml|robots\\.txt|llms\\.txt|startupranking1371684721257210\\.html$|\\.well-known|model-logo|model-video|marketing|images|videos|blog/covers|blog/default-cover\\.svg).*)",
   ],
 };

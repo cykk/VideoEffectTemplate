@@ -4,14 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  FileText,
+  Sparkles,
   LayoutDashboard,
   Menu,
   X,
 } from "lucide-react";
 import type { Locale } from "@markless/shared/src/i18n/types";
 import { getDictionary } from "@markless/shared/src/i18n";
-import { buildDashboardPath, buildDashboardTranscriptionsPath } from "@/lib/dashboard/paths";
+import { buildDashboardPath } from "@/lib/dashboard/paths";
 
 interface DashboardSidebarProps {
   locale: Locale;
@@ -40,10 +40,10 @@ export function DashboardSidebar({ locale }: DashboardSidebarProps) {
       exactMatch: true,
     },
     {
-      id: "transcriptions",
-      label: labels.nav.transcriptions,
-      icon: FileText,
-      href: buildDashboardTranscriptionsPath(locale),
+      id: "jobs",
+      label: dictionary.app.ai.jobs.page.title,
+      icon: Sparkles,
+      href: buildDashboardPath(locale, "/jobs"),
       exactMatch: false,
     },
   ];

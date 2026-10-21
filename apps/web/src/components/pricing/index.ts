@@ -5,7 +5,6 @@ export { KeyFeaturesGrid } from "./key-features-grid";
 export { FinalCTA } from "./final-cta";
 export { PlanTypeToggle } from "./plan-type-toggle";
 export { CreditPackageCard } from "./credit-package-card";
-export { PricingTwoColumn } from "./pricing-two-column";
 export { PricingPriceDisplay } from "./pricing-price-display";
 export { PricingPlanCard } from "./pricing-plan-card";
 export { PricingSubscriptionGrid } from "./pricing-subscription-grid";

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CancelSubscriptionModal } from "./cancel-modal";
 import { SUBSCRIPTION_STATUS, type SubscriptionStatus } from "@markless/shared/src/constants/subscription";
+import { getDictionary } from "@markless/shared/src/i18n";
 
 interface SubscriptionActionsProps {
   status: SubscriptionStatus;
@@ -25,7 +26,7 @@ export function SubscriptionActions({ status, periodEnd, locale }: SubscriptionA
         className="text-neutral-500 cursor-pointer dark:text-neutral-400 hover:bg-transparent hover:text-neutral-500 dark:hover:text-neutral-400"
         onClick={() => setShowCancelModal(true)}
       >
-        {locale === "en" ? "Cancel Plan" : "取消套餐"}
+        {getDictionary().app.settings.billing.actions.cancelPlan}
       </Button>
       <CancelSubscriptionModal 
         open={showCancelModal}

@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { PricingPageContent } from "@/components/pricing/pricing-page-content";
 import { getDictionary, locales, defaultLocale } from "@markless/shared/src/i18n";
-import { formatFreeTierCopy } from "@markless/shared/src/lib/marketing/free-tier-copy";
 import { getWebBaseUrl } from "@markless/shared/src/lib/config/urls";
 import { getMetadataSiteName, buildMetadataTitle, OG_IMAGE_URL, OG_IMAGE_SIZE } from "@/lib/metadata";
 
@@ -30,7 +29,7 @@ export default async function LocalePricingPage({ params }: LocalePricingPagePro
       name: item.question,
       acceptedAnswer: {
         "@type": "Answer",
-        text: formatFreeTierCopy(item.answer),
+        text: item.answer,
       },
     })),
   };

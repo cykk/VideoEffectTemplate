@@ -14,7 +14,6 @@ import {
   consumeCreditsRefreshPending,
 } from "@markless/shared/src/lib/payments/client-checkout";
 import { refreshUserBootstrap } from "@/lib/query/user-query-refresh";
-import { usePendingTranscriptionAutoClaim } from "@/hooks/use-pending-transcription-auto-claim";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const {
@@ -25,7 +24,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
   const { locale } = useLocale();
 
-  usePendingTranscriptionAutoClaim(bootstrap?.authenticated);
 
   useEffect(() => {
     let cancelled = false;

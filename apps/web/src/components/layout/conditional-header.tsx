@@ -16,7 +16,7 @@ const localePattern = new RegExp(`^/(${locales.join("|")})($|/)`);
 function resolveHeaderMode(pathname: string): "marketing" | "app" | "none" {
   const cleanPath = pathname.replace(localePattern, "/");
 
-  if (cleanPath.startsWith("/admin") || cleanPath.startsWith("/transcriptions/") || cleanPath.startsWith("/share/") || cleanPath.startsWith("/redeem")) {
+  if (cleanPath.startsWith("/admin") || cleanPath.startsWith("/redeem")) {
     return "none";
   }
 

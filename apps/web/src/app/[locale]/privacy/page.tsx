@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { PrivacyPageContent } from "@/components/legal/privacy-page-content";
+import { LegalPending } from "@/components/legal/legal-pending";
+import { isLegalContentReady } from "@/lib/legal-content";
 import { getDictionary, locales, defaultLocale } from "@markless/shared/src/i18n";
 import { getWebBaseUrl } from "@markless/shared/src/lib/config/urls";
 import { buildMetadataTitle, getMetadataSiteName, OG_IMAGE_URL, OG_IMAGE_SIZE } from "@/lib/metadata";
@@ -20,6 +22,9 @@ export default async function LocalePrivacyPage({ params }: LocalePrivacyPagePro
   }
 
   const dictionary = getDictionary(normalizedLocale);
+  if (!isLegalContentReady(dictionary)) {
+    return <LegalPending {...dictionary.app.legal.pending.privacy} />;
+  }
   return <PrivacyPageContent dictionary={dictionary.pages.privacy} />;
 }
 
@@ -36,9 +41,9 @@ export async function generateMetadata({ params }: LocalePrivacyPageProps) {
     const fallback = getDictionary(defaultLocale);
     return {
       title: {
-        absolute: buildMetadataTitle(fallback.pages.privacy.title, fallback),
+        absolute: fallback.app.legal.pending.privacy.title,
       },
-      description: fallback.pages.privacy.subtitle,
+      description: fallback.app.legal.pending.privacy.description,
       robots: {
         index: false,
         follow: true,
@@ -51,21 +56,23 @@ export async function generateMetadata({ params }: LocalePrivacyPageProps) {
   }
 
   const dictionary = getDictionary(normalizedLocale);
+  const legalReady = isLegalContentReady(dictionary);
+  const copy = legalReady ? dictionary.pages.privacy : dictionary.app.legal.pending.privacy;
   const baseUrl = getWebBaseUrl();
   const pageUrl = `${baseUrl}/privacy`;
-  const pageTitle = buildMetadataTitle(dictionary.pages.privacy.title, dictionary);
+  const pageTitle = buildMetadataTitle(copy.title, dictionary);
 
   return {
     title: {
       absolute: pageTitle,
     },
-    description: dictionary.pages.privacy.subtitle,
+    description: legalReady ? dictionary.pages.privacy.subtitle : copy.description,
     alternates: {
       canonical: pageUrl,
     },
     openGraph: {
       title: pageTitle,
-      description: dictionary.pages.privacy.subtitle,
+      description: legalReady ? dictionary.pages.privacy.subtitle : copy.description,
       url: pageUrl,
       siteName: getMetadataSiteName(dictionary),
       locale: "en_US",
@@ -75,7 +82,7 @@ export async function generateMetadata({ params }: LocalePrivacyPageProps) {
     twitter: {
       card: "summary_large_image",
       title: pageTitle,
-      description: dictionary.pages.privacy.subtitle,
+      description: legalReady ? dictionary.pages.privacy.subtitle : copy.description,
       images: [OG_IMAGE_URL],
     },
     robots: {

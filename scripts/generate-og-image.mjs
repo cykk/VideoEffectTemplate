@@ -1,45 +1,40 @@
 import sharp from "sharp";
-import { mkdir } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const outputDir = path.resolve(__dirname, "../apps/web/public");
-const outputPath = path.join(outputDir, "og-image.png");
-
-const svg = `<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f0fdfa"/>
-      <stop offset="45%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#ecfeff"/>
-    </linearGradient>
-    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0C7A7C" stop-opacity="0.12"/>
-      <stop offset="100%" stop-color="#14b8a6" stop-opacity="0.04"/>
-    </linearGradient>
-  </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect x="720" y="-40" width="560" height="560" rx="280" fill="url(#accent)"/>
-  <rect x="80" y="198" width="88" height="88" rx="18" fill="#0C7A7C"/>
-  <rect x="98" y="248" width="8" height="18" rx="4" fill="#ffffff"/>
-  <rect x="112" y="228" width="8" height="48" rx="4" fill="#ffffff"/>
-  <rect x="126" y="238" width="8" height="30" rx="4" fill="#ffffff"/>
-  <rect x="148" y="238" width="28" height="8" rx="4" fill="#ffffff"/>
-  <rect x="148" y="256" width="20" height="8" rx="4" fill="#ffffff"/>
-  <text x="188" y="258" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700" fill="#26676A">MP3ToText<tspan fill="#26676A">.io</tspan></text>
-  <text x="80" y="348" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="700" fill="#0f172a">AI Audio &amp; Video Transcription</text>
-  <text x="80" y="410" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#475569">Fast, accurate AI transcription online</text>
-  <rect x="80" y="452" width="320" height="56" rx="28" fill="#0C7A7C"/>
-  <text x="240" y="489" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#ffffff">Start Transcribing Free</text>
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const web = path.join(root, "apps/web");
+const dictionary = JSON.parse(await readFile(path.join(root, "packages/shared/src/i18n/locales/en.json"), "utf8"));
+const brand = dictionary.component.layout.header.brand.identity.primary_name;
+const description = dictionary.page.marketing.landing.metadata.description;
+const escapeXml = (value) => value.replace(/[&<>"']/g, (character) => ({
+  "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;",
+})[character]);
+const mark = '<rect x="3" y="3" width="9" height="9" rx="2" fill="white"/><rect x="16" y="3" width="9" height="9" rx="2" fill="white" opacity=".6"/><rect x="3" y="16" width="9" height="9" rx="2" fill="white" opacity=".6"/><rect x="16" y="16" width="9" height="9" rx="2" fill="white"/>';
+const icon = `<svg width="512" height="512" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="28" rx="6" fill="#0C7A7C"/>${mark}</svg>`;
+const og = `<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#f7faf9"/>
+  <rect x="72" y="75" width="1056" height="480" rx="20" fill="#ffffff" stroke="#dbe5e3" stroke-width="2"/>
+  <svg x="128" y="166" width="88" height="88" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill="#0C7A7C"/>${mark}</svg>
+  <text x="244" y="225" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#153c3b">${escapeXml(brand)}</text>
+  <text x="128" y="370" font-family="Arial, sans-serif" font-size="23" fill="#475569">${escapeXml(description)}</text>
 </svg>`;
 
-await mkdir(outputDir, { recursive: true });
+await mkdir(path.join(web, "public"), { recursive: true });
+const iconPng = await sharp(Buffer.from(icon)).resize(512, 512).png().toBuffer();
+await writeFile(path.join(web, "src/app/icon.png"), iconPng);
+await sharp(Buffer.from(icon)).resize(180, 180).png().toFile(path.join(web, "src/app/apple-icon.png"));
+await sharp(Buffer.from(og)).png().toFile(path.join(web, "public/og-image.png"));
 
-await sharp(Buffer.from(svg))
-  .resize(1200, 630)
-  .png({ compressionLevel: 9 })
-  .toFile(outputPath);
-
-const meta = await sharp(outputPath).metadata();
-console.log(`Wrote ${outputPath} (${meta.width}x${meta.height})`);
+const faviconPng = await sharp(Buffer.from(icon)).resize(48, 48).png().toBuffer();
+const header = Buffer.alloc(22);
+header.writeUInt16LE(1, 2);
+header.writeUInt16LE(1, 4);
+header[6] = 48;
+header[7] = 48;
+header.writeUInt16LE(1, 10);
+header.writeUInt16LE(32, 12);
+header.writeUInt32LE(faviconPng.length, 14);
+header.writeUInt32LE(22, 18);
+await writeFile(path.join(web, "src/app/favicon.ico"), Buffer.concat([header, faviconPng]));

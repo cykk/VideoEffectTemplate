@@ -1,5 +1,6 @@
 import type { BlogPostMeta } from "@/lib/blog/types";
 import { getWebBaseUrl } from "@markless/shared/src/lib/config/urls";
+import { BRAND_CONFIG } from "@markless/shared/src/lib/config/brand";
 
 interface BlogJsonLdProps {
   post: BlogPostMeta;
@@ -22,7 +23,7 @@ export function BlogJsonLd({ post }: BlogJsonLdProps) {
     },
     publisher: {
       "@type": "Organization",
-      name: "MP3ToText",
+      name: BRAND_CONFIG.primaryName,
       url: baseUrl,
     },
     mainEntityOfPage: {

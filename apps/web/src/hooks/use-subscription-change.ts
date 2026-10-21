@@ -1,21 +1,23 @@
 import { useState } from 'react'
 import { apiFetch } from '@markless/shared/src/lib/http/client'
 import { paymentMessage } from '@markless/shared/src/lib/payments/messages'
+import { getDictionary } from '@markless/shared/src/i18n'
 
+const changeErrors = getDictionary().app.settings.billing.changeErrors
 const SUBSCRIPTION_CHANGE_ERROR_MESSAGE_MAP: Record<string, string> = {
-  "subscription.visible.error.noActiveSubscription": "No active subscription found",
-  "subscription.visible.error.invalidSubscriptionPlan": "Invalid subscription plan",
-  "subscription.visible.error.currentPlanNotFound": "Current subscription plan not found",
-  "subscription.visible.error.productInfoNotFound": "Subscription plan details are unavailable",
-  "subscription.visible.error.upgradeRequiresHigherTier": "Please choose a higher plan to upgrade",
-  "subscription.visible.error.downgradeRequiresLowerTier": "Please choose a lower plan to switch",
-  "subscription.visible.error.planUnavailable": "This plan is temporarily unavailable",
-  "subscription.visible.error.onlyCreemSupported": "Only Creem subscriptions can be changed right now",
-  "subscription.visible.error.previewNotImplemented": "Upgrade preview is not available yet",
-  "subscription.visible.error.unsupportedProvider": "This payment provider is not supported",
-  "subscription.visible.error.internalPreviewError": "Unable to preview this plan change right now",
-  "subscription.visible.error.upgradeRejected": "Unable to upgrade the subscription right now",
-  "subscription.visible.error.downgradeFailed": "Unable to change the subscription right now",
+  "subscription.visible.error.noActiveSubscription": changeErrors.noActiveSubscription,
+  "subscription.visible.error.invalidSubscriptionPlan": changeErrors.invalidSubscriptionPlan,
+  "subscription.visible.error.currentPlanNotFound": changeErrors.currentPlanNotFound,
+  "subscription.visible.error.productInfoNotFound": changeErrors.productInfoNotFound,
+  "subscription.visible.error.upgradeRequiresHigherTier": changeErrors.upgradeRequiresHigherTier,
+  "subscription.visible.error.downgradeRequiresLowerTier": changeErrors.downgradeRequiresLowerTier,
+  "subscription.visible.error.planUnavailable": changeErrors.planUnavailable,
+  "subscription.visible.error.onlyCreemSupported": changeErrors.onlyCreemSupported,
+  "subscription.visible.error.previewNotImplemented": changeErrors.previewNotImplemented,
+  "subscription.visible.error.unsupportedProvider": changeErrors.unsupportedProvider,
+  "subscription.visible.error.internalPreviewError": changeErrors.internalPreviewError,
+  "subscription.visible.error.upgradeRejected": changeErrors.upgradeRejected,
+  "subscription.visible.error.downgradeFailed": changeErrors.downgradeFailed,
 }
 
 interface SubscriptionChangeResult {
@@ -36,7 +38,7 @@ interface UseSubscriptionChangeReturn {
 
 function resolveSubscriptionChangeMessage(message?: string | null): string {
   if (!message) {
-    return 'Failed to change subscription plan'
+    return changeErrors.unknown
   }
   if (message.startsWith('app.payments.')) return paymentMessage(message)
 

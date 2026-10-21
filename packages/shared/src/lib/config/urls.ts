@@ -1,10 +1,7 @@
 import type { NextRequest } from "next/server";
 import { getEnv } from "@markless/shared/src/lib/config/env";
 
-const DEFAULT_WEB_URL =
-  getEnv("NODE_ENV") === "development"
-    ? "http://localhost:3000"
-    : "https://mp3totext.io";
+const DEFAULT_WEB_URL = "http://localhost:3000";
 
 function normalizeBaseUrl(value?: string): string {
   const base = (value || DEFAULT_WEB_URL).trim();

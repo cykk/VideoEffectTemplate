@@ -35,11 +35,6 @@ function buildCreditsHref(userId: string, page: number): string {
   return `/admin/users/${encodeURIComponent(userId)}/credits?page=${page}`;
 }
 
-function buildTranscriptionsHref(publicId: string): string {
-  const params = new URLSearchParams({ q: publicId, page: "1", pageSize: "20" });
-  return `/admin/transcriptions?${params.toString()}`;
-}
-
 export function AdminUserCreditsPage() {
   const params = useParams<{ userId: string }>();
   const searchParams = useSearchParams();
@@ -181,12 +176,9 @@ export function AdminUserCreditsPage() {
                         </TableCell>
                         <TableCell className="text-slate-700">
                           {row.referencePublicId ? (
-                            <Link
-                              href={buildTranscriptionsHref(row.referencePublicId)}
-                              className="font-medium text-brand-700 hover:underline"
-                            >
+                            <span className="font-mono text-xs text-slate-600">
                               Job {row.referencePublicId}
-                            </Link>
+                            </span>
                           ) : row.orderId ? (
                             <span className="font-mono text-xs text-slate-600" title={row.orderId}>
                               Order {row.orderId.slice(0, 8)}…

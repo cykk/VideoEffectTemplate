@@ -18,9 +18,7 @@ export function FooterWrapper() {
         cleanPath.startsWith("/dashboard") ||
         cleanPath.startsWith("/settings") ||
         cleanPath.startsWith("/profile") ||
-        cleanPath.startsWith("/admin") ||
-        cleanPath.startsWith("/transcriptions/") ||
-        cleanPath.startsWith("/share/");
+        cleanPath.startsWith("/admin");
 
     if (isAuthPage || isAppPage) {
         return null;
@@ -30,9 +28,7 @@ export function FooterWrapper() {
         <Footer
             dictionary={dictionary.footer}
             brandDictionary={dictionary.component.layout.footer}
-            toolsMenu={dictionary.header.toolsMenu}
             currentLocale={locale}
-            activePathname={pathname}
         />
     );
 }

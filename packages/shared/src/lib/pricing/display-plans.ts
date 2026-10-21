@@ -7,6 +7,7 @@ import {
   type SubscriptionProduct,
 } from "@markless/shared/src/lib/products/config";
 import type { PricingPeriod } from "@markless/shared/src/lib/pricing/i18n-config";
+import enDictionary from "@markless/shared/src/i18n/locales/en.json";
 
 export type DisplayPlanId = "free" | "basic" | "standard" | "pro";
 
@@ -222,16 +223,7 @@ export function resolveSubscriptionPlanFeatures(
     return features;
   }
 
-  return features.map((feature, index) => {
-    if (
-      index !== 0 ||
-      !/^\d[\d,]* (?:credits|transcription minutes|minutes of transcription) per month(?: \(.+\))?$/i.test(
-        feature
-      )
-    ) {
-      return feature;
-    }
-
-    return `${monthlyCredits} minutes of transcription per month`;
-  });
+  return features.map((feature, index) => index === 0
+    ? enDictionary.app.billing.catalog.feature.monthlyCredits.replace("{credits}", String(monthlyCredits))
+    : feature);
 }

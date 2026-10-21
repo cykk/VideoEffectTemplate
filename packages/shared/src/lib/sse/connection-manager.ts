@@ -6,6 +6,7 @@
  */
 
 import { getPublicEnv } from "@markless/shared/src/lib/config/env";
+import enDictionary from "@markless/shared/src/i18n/locales/en.json";
 import { buildClientSseUrl, isCrossOriginClientUrl } from "@markless/shared/src/lib/http/client";
 import {
     isActiveAsyncTaskStatus,
@@ -415,7 +416,7 @@ export class SSEConnectionManager {
             }
 
             if (parsed.type === "error") {
-                this.notifyErrorHandlers(new Error(parsed.message || "Server error"));
+                this.notifyErrorHandlers(new Error(parsed.message || enDictionary.app.events.stream.error.server));
                 return;
             }
 

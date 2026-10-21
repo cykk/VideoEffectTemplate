@@ -2,14 +2,9 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { AuthButtons } from "@/components/header/auth-buttons";
 import { HeaderLogo } from "@/components/header/header-logo";
-import {
-  ToolsNavDesktopMenu,
-  ToolsNavMobileAccordion,
-} from "@/components/header/tools-nav-menu";
 import { UserActionBar } from "@/components/header/user-action-bar";
 import { AuthModal } from "@/components/tools/auth-modal";
 import { Button } from "@/components/ui/button";
@@ -44,7 +39,6 @@ export function Header({
   variant?: HeaderVariant;
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = usePathname();
   const { locale, dictionary } = useLocale();
   const {
     showAuthModal,
@@ -64,9 +58,7 @@ export function Header({
     openSignUp("go_dashboard", dashboardUrl);
   }, [dashboardUrl, openSignUp]);
   const marketingHomeUrl = locale === "en" ? "/" : `/${locale}`;
-  const featuresHref = `${marketingHomeUrl}#features`;
   const pricingHref = locale === "en" ? "/pricing" : `/${locale}/pricing`;
-  const faqHref = `${marketingHomeUrl}#faq`;
   const blogHref = locale === "en" ? "/blog" : `/${locale}/blog`;
   const marketingNavLinkClassName =
     "cursor-pointer rounded-lg px-3 py-2 text-sm font-medium text-slate-700 transition-all duration-200 hover:bg-primary/5 hover:text-primary";
@@ -104,16 +96,6 @@ export function Header({
 
         {showDesktopPricing ? (
           <nav className="ml-12 hidden items-center gap-1 lg:flex">
-            <ToolsNavDesktopMenu
-              locale={locale}
-              menuLabel={dictionary.header.tools}
-              triggerAriaLabel={dictionary.header.toolsMenu.triggerAria}
-              labels={dictionary.header.toolsMenu}
-              activePathname={pathname}
-            />
-            <Link href={featuresHref} className={marketingNavLinkClassName}>
-              {dictionary.header.features}
-            </Link>
             <Link href={pricingHref} className={marketingNavLinkClassName}>
               {dictionary.header.pricing}
             </Link>
@@ -122,9 +104,6 @@ export function Header({
                 {dictionary.header.blog}
               </Link>
             ) : null}
-            <Link href={faqHref} className={marketingNavLinkClassName}>
-              {dictionary.header.faq}
-            </Link>
           </nav>
         ) : null}
 
@@ -188,20 +167,6 @@ export function Header({
           <div className="space-y-1 px-4 py-6">
             {isMarketing ? (
               <>
-                <ToolsNavMobileAccordion
-                  locale={locale}
-                  menuLabel={dictionary.header.tools}
-                  labels={dictionary.header.toolsMenu}
-                  activePathname={pathname}
-                  onNavigate={() => setIsMenuOpen(false)}
-                />
-                <Link
-                  href={featuresHref}
-                  className={`block ${marketingNavLinkClassName}`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {dictionary.header.features}
-                </Link>
                 <Link
                   href={pricingHref}
                   className={`block ${marketingNavLinkClassName}`}
@@ -218,13 +183,6 @@ export function Header({
                     {dictionary.header.blog}
                   </Link>
                 ) : null}
-                <Link
-                  href={faqHref}
-                  className={`block ${marketingNavLinkClassName}`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {dictionary.header.faq}
-                </Link>
               </>
             ) : null}
 

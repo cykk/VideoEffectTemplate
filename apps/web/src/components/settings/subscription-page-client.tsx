@@ -11,6 +11,7 @@ import { SUBSCRIPTION_STATUS } from "@markless/shared/src/constants/subscription
 import { useApiResource } from "@/hooks/use-api-resource";
 import { useLocale } from "@/hooks/use-locale";
 import { defaultLocale } from "@markless/shared/src/i18n";
+import { usePublicBrand } from "@/components/providers/public-brand-provider";
 import type { Locale } from "@markless/shared/src/i18n/types";
 import { formatAppCurrency, formatAppDate, formatAppNumber } from "@/lib/formatters";
 import { WaffoManagement } from "./subscription/waffo-management";
@@ -31,6 +32,7 @@ type SubscriptionDetailData = {
 };
 
 export function SubscriptionPageClient({ locale }: { locale: Locale }) {
+  const { supportEmail } = usePublicBrand();
   const { dictionary } = useLocale();
   const dict = dictionary.pages.membership.subscriptionPage;
   const { data } = useApiResource<SubscriptionDetailData>("/api/user/subscription/detail");
@@ -147,15 +149,15 @@ export function SubscriptionPageClient({ locale }: { locale: Locale }) {
           <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
             {dict.actions.planChanges.description}
           </p>
-          <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+          {supportEmail ? <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
             {dict.actions.planChanges.contactPrefix}{" "}
             <a
-              href="mailto:support@mp3totext.io"
+              href={`mailto:${supportEmail}`}
               className="font-medium text-primary underline-offset-4 hover:underline"
             >
               {dict.actions.planChanges.contactLink}
             </a>
-          </p>
+          </p> : null}
         </div>
       </div>
     </div>

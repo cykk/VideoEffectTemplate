@@ -21,11 +21,3 @@ export function getPublicEnv(name: string, fallback?: string): string | undefine
   }
   return getEnv(name, fallback);
 }
-
-export function isAnonymousTranscriptionCleanupEnabled(): boolean {
-  return getEnv("ENABLE_ANONYMOUS_TRANSCRIPTION_CLEANUP") === "true";
-}
-
-export function isTranscriptionFailureArchiveCleanupEnabled(): boolean {
-  return getEnv("ENABLE_TRANSCRIPTION_FAILURE_ARCHIVE_CLEANUP") === "true";
-}

@@ -101,3 +101,13 @@ export async function requestReplicatePrediction<T>(
     throw error;
   }
 }
+
+export async function getReplicatePrediction<T>(id: string): Promise<T> {
+  if (!/^[A-Za-z0-9_-]+$/.test(id)) throw new Error('Invalid prediction ID');
+  const response = await fetch(`${REPLICATE_API_BASE}/predictions/${id}`, {
+    headers: { Authorization: `Bearer ${getReplicateToken()}` },
+    signal: AbortSignal.timeout(12000),
+  });
+  if (!response.ok) throw new Error(`Replicate prediction lookup failed (${response.status})`);
+  return response.json() as Promise<T>;
+}

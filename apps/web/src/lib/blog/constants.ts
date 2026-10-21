@@ -4,7 +4,7 @@ export const BLOG_NAV_MIN_POSTS = 3;
 /**
  * Enable Blog in header/footer once at least {BLOG_NAV_MIN_POSTS} published posts exist.
  */
-export const BLOG_NAV_ENABLED = true;
+export const BLOG_NAV_ENABLED = false;
 
 export const DEFAULT_BLOG_COVER_IMAGE = "/blog/default-cover.svg";
 

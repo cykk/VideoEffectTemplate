@@ -1,18 +1,18 @@
 {
   "authPanel": {
     "signin": {
-      "title": "Sign in to MP3 to Text",
-      "description": "Access your saved transcripts and continue where you left off."
+      "title": "Sign in to your account",
+      "description": "Access your dashboard and continue your work."
     },
     "signup": {
       "title": "Create your account",
-      "description": "Create an account for {authenticatedDailyLimit} free transcriptions every day, up to {authenticatedDurationLimitMinutes} minutes each.",
+      "description": "Create an account to manage your projects and credits.",
       "descriptionPrefix": "Get ",
-      "creditHighlight": "{authenticatedDailyLimit} free transcriptions every day",
-      "descriptionSuffix": " to transcribe longer files and save your transcript history.",
-      "badgeSubtext": "Transcribe longer files and save your transcript history.",
+      "creditHighlight": "Your account and credits",
+      "descriptionSuffix": " are available in your dashboard.",
+      "badgeSubtext": "Manage your work in one place.",
       "fallbackTitle": "Create your free account",
-      "fallbackDescription": "Get {authenticatedDailyLimit} free transcriptions every day, up to {authenticatedDurationLimitMinutes} minutes each.",
+      "fallbackDescription": "Create an account to manage your work and credits.",
       "noCreditCardHint": "No credit card required."
     },
     "signedInAs": "Signed in as {name}",
@@ -26,9 +26,9 @@
       "logIn": "Log in"
     },
     "signupBenefits": [
-      "Save and revisit your transcripts",
-      "{authenticatedDailyLimit} free transcriptions every day, up to {authenticatedDurationLimitMinutes} minutes each",
-      "Export in TXT, PDF, SRT, and more"
+      "Keep your work in one account",
+      "View your credit balance at any time",
+      "Manage purchases and subscriptions"
     ],
     "withGoogle": "Continue with Google",
     "orDivider": "OR",
@@ -155,13 +155,13 @@
     }
   },
   "footer": {
-    "description": "Convert MP3 to text online with accurate transcripts, timestamps, speaker labels, and easy exports.",
+    "description": "Manage your account, credits, subscriptions, and AI jobs in one place.",
     "company": "Company",
     "contact": "Contact",
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "links": "Partners",
-    "copyright": "© {year} MP3ToText. All rights reserved.",
+    "copyright": "© {year} SaaS Starter. All rights reserved.",
     "madeWithLove": "Made with love",
     "tools": "Tools",
     "product": "Product",
@@ -174,7 +174,7 @@
     "cookies": "Cookies",
     "support": {
       "label": "Support",
-      "email": "support@mp3totext.io"
+      "email": ""
     }
   },
   "tools": {
@@ -245,26 +245,26 @@
         "deleteSuccess": "Deleted successfully",
         "deleteError": "Couldn't delete. Please try again"
       },
-      "brandName": "MP3 to Text"
+      "brandName": "SaaS Starter"
     },
     "authModal": {
       "signin": {
         "title": "Sign in to continue",
-        "description": "Access your saved transcripts and continue where you left off."
+        "description": "Access your dashboard and continue your work."
       },
       "signup": {
         "title": "Create your account",
-        "description": "Create an account for {authenticatedDailyLimit} free transcriptions every day, up to {authenticatedDurationLimitMinutes} minutes each.",
+        "description": "Create an account to manage your projects and credits.",
         "descriptionPrefix": "Get ",
-        "creditHighlight": "{authenticatedDailyLimit} free transcriptions every day",
-        "descriptionSuffix": " and save your transcript history.",
-        "badgeSubtext": "Save your transcript history.",
+        "creditHighlight": "Your account and credits",
+        "descriptionSuffix": " are available in your dashboard.",
+        "badgeSubtext": "Manage your work in one place.",
         "noCreditCardHint": "No credit card required.",
-        "offerHighlight": "{authenticatedDailyLimit} free transcriptions every day",
+        "offerHighlight": "Your account and credits",
         "offerSuffix": " — no credit card required",
-        "offerLine": "{authenticatedDailyLimit} free transcriptions every day — no credit card required",
+        "offerLine": "Create an account without a credit card",
         "fallbackTitle": "Create your free account",
-        "fallbackDescription": "Get {authenticatedDailyLimit} free transcriptions every day, up to {authenticatedDurationLimitMinutes} minutes each."
+        "fallbackDescription": "Create an account to manage your work and credits."
       },
       "withGoogle": "Continue with Google",
       "withGitHub": "Continue with GitHub",
@@ -545,34 +545,34 @@
     "pricing": {
       "title": "Simple, Transparent Pricing",
       "plansSectionTitle": "Choose Your Plan",
-      "subtitle": "Start free, then choose monthly, yearly, or one-time minutes of transcription based on how much you transcribe.",
-      "description": "Start free, then choose monthly, yearly, or one-time minutes of transcription based on how much you transcribe.",
+      "subtitle": "Choose a monthly or yearly plan, or purchase credits when you need them.",
+      "description": "Choose a monthly or yearly plan, or purchase credits when you need them.",
       "faqTitle": "Frequently Asked Questions",
       "faqSubtitle": "",
       "faqs": [
         {
-          "question": "Can I try mp3totext.io for free?",
-          "answer": "Yes. You can transcribe up to {guestDailyLimit} files per day without signing in, with each file limited to {guestDurationLimitMinutes} minutes. Create a free account to get up to {authenticatedDailyLimit} free files per day, with a limit of {authenticatedDurationLimitMinutes} minutes per file. No credit card is required."
+          "question": "Can I create an account for free?",
+          "answer": "Yes. Creating an account does not require a credit card. A credit balance is needed to run paid AI jobs."
         },
         {
-          "question": "How are transcription minutes counted?",
-          "answer": "Your plan uses one transcription minute for each minute of audio or video, rounded up to the next full minute. For example, a 12-minute-20-second file uses 13 minutes."
+          "question": "How are credits used?",
+          "answer": "Each enabled AI feature shows its credit cost before you submit a job. Credits are reserved when a job starts and eligible credits are returned if it fails."
         },
         {
           "question": "What is the difference between Monthly, Yearly, and One-Time plans?",
-          "answer": "Monthly and Yearly plans renew your transcription minutes each billing cycle. Yearly plans are paid once a year, but minutes are added monthly. One-Time minute packs do not renew and never expire."
+          "answer": "Monthly plans add credits each billing cycle. Yearly plans are billed annually and add credits monthly. One-time credit packs do not renew."
         },
         {
-          "question": "Do unused transcription minutes expire?",
-          "answer": "Minutes from One-Time packs never expire. Minutes included with Monthly or Yearly plans refresh at the start of each billing cycle and are available while your subscription is active."
+          "question": "Do unused credits expire?",
+          "answer": "Purchased credits do not expire. Subscription credits refresh each grant period and are available while the plan remains active."
         },
         {
           "question": "Can I cancel my subscription at any time?",
-          "answer": "Yes. You can cancel a Monthly or Yearly plan at any time. Your plan stays active until the end of the current billing period, so you can continue using the remaining minutes until then."
+          "answer": "Yes. You can cancel a Monthly or Yearly plan at any time. The plan remains active until the end of the paid billing period."
         },
         {
-          "question": "What happens when I use all my transcription minutes?",
-          "answer": "You can buy a One-Time minute pack whenever you need more transcription time, or switch to a Monthly or Yearly plan for recurring minutes."
+          "question": "What happens when I use all my credits?",
+          "answer": "You can buy a one-time credit pack or choose a recurring plan. Jobs that cost more than your available balance cannot start."
         }
       ],
       "subscriptionChangeModal": {
@@ -853,14 +853,14 @@
       },
       "planTypeToggle": {
         "subscriptionPlans": "Subscription Plans",
-        "creditPacks": "Minute Packs"
+        "creditPacks": "Credit Packs"
       },
       "pricingCard": {
         "billedAnnually": "Billed yearly"
       },
       "finalCta": {
         "title": "Choose the plan that works best for you",
-        "choosePlan": "Get Minutes Now"
+        "choosePlan": "Get credits"
       },
       "pricingTwoColumn": {
         "freePlan": {
@@ -912,49 +912,36 @@
         },
         "oneTimePlans": {
           "basic": {
-            "name": "800 Minutes of Transcription",
-            "description": "Perfect for occasional transcription needs.",
+            "name": "800 credits",
+            "description": "A flexible one-time credit balance.",
             "cta": "Buy now",
             "features": [
-              "800 minutes of transcription",
-              "One-time minutes of transcription never expire",
-              "Word, CSV, PDF, TXT, SRT, VTT export formats",
-              "Text Summary",
-              "Save and revisit your transcription history anytime",
-              "Each file can be up to 10 hours long / 5 GB. No daily file limit for transcription",
-              "Transcription available in 98 languages",
-              "Up to 99% transcription accuracy"
+              "800 credits added to your account",
+              "Purchased credits do not expire",
+              "Use credits for enabled AI jobs"
             ]
           },
           "standard": {
-            "name": "2000 Minutes of Transcription",
+            "name": "2000 credits",
             "description": "Best value for flexible one-time usage.",
             "cta": "Buy now",
             "features": [
-              "2000 minutes of transcription",
-              "One-time minutes of transcription never expire",
-              "Word, CSV, PDF, TXT, SRT, VTT export formats",
-              "Text Summary",
-              "Save and revisit your transcription history anytime",
-              "Each file can be up to 10 hours long / 5 GB. No daily file limit for transcription",
-              "Transcription available in 98 languages",
-              "Up to 99% transcription accuracy"
+              "2000 credits added to your account",
+              "Purchased credits do not expire",
+              "Use credits for enabled AI jobs"
             ]
           }
         },
         "plans": {
           "free": {
             "name": "Free",
-            "description": "Great for trials and individual projects.",
+            "description": "Create an account and purchase credits when needed.",
             "cta": "Get started",
             "currentPlan": "Current plan",
             "features": [
-              "{authenticatedDailyLimit} free transcriptions per day, up to {authenticatedDurationLimitMinutes} minutes each",
-              "Guest users can transcribe {guestDailyLimit} files per day, up to {guestDurationLimitMinutes} minutes each",
-              "Save and revisit your transcription history anytime",
-              "Transcription available in 98 languages",
-              "Up to 99% transcription accuracy",
-              "Word, CSV, PDF, TXT, SRT, VTT export formats"
+              "Account and billing dashboard",
+              "View your credit balance",
+              "Purchase credits when needed"
             ]
           },
           "basic": {
@@ -962,13 +949,9 @@
             "description": "Perfect for regular users and daily tasks.",
             "cta": "Subscribe now",
             "features": [
-              "800 minutes of transcription per month",
-              "Word, CSV, PDF, TXT, SRT, VTT export formats",
-              "Text Summary",
-              "Save and revisit your transcription history anytime",
-              "Each file can be up to 10 hours long / 5 GB. No daily file limit for transcription",
-              "Transcription available in 98 languages",
-              "Up to 99% transcription accuracy"
+              "800 credits each month",
+              "Use credits for enabled AI jobs",
+              "View your balance and job history"
             ]
           },
           "standard": {
@@ -976,13 +959,9 @@
             "description": "The best balance for growing needs.",
             "cta": "Subscribe now",
             "features": [
-              "2000 minutes of transcription per month",
-              "Word, CSV, PDF, TXT, SRT, VTT export formats",
-              "Text Summary",
-              "Save and revisit your transcription history anytime",
-              "Each file can be up to 10 hours long / 5 GB. No daily file limit for transcription",
-              "Transcription available in 98 languages",
-              "Up to 99% transcription accuracy"
+              "2000 credits each month",
+              "Use credits for enabled AI jobs",
+              "View your balance and job history"
             ]
           },
           "pro": {
@@ -990,13 +969,9 @@
             "description": "Ideal for high-volume users and teams.",
             "cta": "Subscribe now",
             "features": [
-              "6000 minutes of transcription per month",
-              "Word, CSV, PDF, TXT, SRT, VTT export formats",
-              "Text Summary",
-              "Save and revisit your transcription history anytime",
-              "Each file can be up to 10 hours long / 5 GB. No daily file limit for transcription",
-              "Transcription available in 98 languages",
-              "Up to 99% transcription accuracy"
+              "6000 credits each month",
+              "Use credits for enabled AI jobs",
+              "View your balance and job history"
             ]
           }
         }
@@ -2692,12 +2667,12 @@
     "login": {
       "title": "Sign In",
       "subtitle": "Welcome back",
-      "description": "Sign in to MP3 to Text to access your saved transcripts and continue where you left off."
+      "description": "Sign in to access your dashboard and continue your work."
     },
     "signup": {
       "title": "Get Started",
       "subtitle": "Create your account",
-      "description": "Create your MP3 to Text account for {authenticatedDailyLimit} free transcriptions every day, up to {authenticatedDurationLimitMinutes} minutes each."
+      "description": "Create an account to manage credits, billing, and AI jobs."
     },
     "redeem": {
       "title": "Redeem your code",
@@ -5018,9 +4993,9 @@
         },
         "brand": {
           "identity": {
-            "primary_name": "MP3ToText",
-            "support_label": ".io",
-            "home_aria_label": "MP3ToText.io home"
+            "primary_name": "SaaS Starter",
+            "support_label": "",
+            "home_aria_label": "SaaS Starter home"
           }
         }
       },
@@ -5028,9 +5003,9 @@
         "brand_name": "MP3ToText",
         "brand": {
           "identity": {
-            "primary_name": "MP3ToText",
-            "support_label": ".io",
-            "home_aria_label": "MP3ToText.io home"
+            "primary_name": "SaaS Starter",
+            "support_label": "",
+            "home_aria_label": "SaaS Starter home"
           },
           "discovery": {
             "site_hint": ""
@@ -5120,9 +5095,9 @@
     "marketing": {
       "landing": {
         "metadata": {
-          "title": "MP3 to Text Converter | Free AI Transcription",
-          "description": "Convert MP3 to text for free with fast, accurate AI transcription. Get searchable transcripts, timestamps, speaker labels, summaries, and exports in minutes.",
-          "og_image_alt": "MP3 to Text Converter | Free AI Transcription"
+          "title": "SaaS Starter",
+          "description": "A starter for accounts, subscriptions, credits, payments, and optional AI jobs.",
+          "og_image_alt": "SaaS Starter"
         }
       },
       "m4aToText": {
@@ -5377,14 +5352,133 @@
     }
   },
   "app": {
+    "runtime": {
+      "task": {
+        "status": {
+          "providerName": "Trigger.dev"
+        }
+      }
+    },
+    "auth": {
+      "oauth": {
+        "start": {
+          "error": {
+            "missingCallback": "Missing callbackURL",
+            "invalidCallback": "Invalid callbackURL",
+            "notConfigured": "Auth service is not configured",
+            "startFailed": "Failed to start OAuth",
+            "invalidResponse": "Invalid Better Auth response"
+          }
+        }
+      }
+    },
+    "settings": {
+      "billing": {
+        "actions": {
+          "recharge": "Recharge",
+          "upgradePlan": "Upgrade plan",
+          "cancelPlan": "Cancel plan"
+        },
+        "changeErrors": {
+          "noActiveSubscription": "No active subscription found",
+          "invalidSubscriptionPlan": "Invalid subscription plan",
+          "currentPlanNotFound": "Current subscription plan not found",
+          "productInfoNotFound": "Subscription plan details are unavailable",
+          "upgradeRequiresHigherTier": "Please choose a higher plan to upgrade",
+          "downgradeRequiresLowerTier": "Please choose a lower plan to switch",
+          "planUnavailable": "This plan is temporarily unavailable",
+          "onlyCreemSupported": "Only Creem subscriptions can be changed right now",
+          "previewNotImplemented": "Upgrade preview is not available yet",
+          "unsupportedProvider": "This payment provider is not supported",
+          "internalPreviewError": "Unable to preview this plan change right now",
+          "upgradeRejected": "Unable to upgrade the subscription right now",
+          "downgradeFailed": "Unable to change the subscription right now",
+          "unknown": "Failed to change subscription plan"
+        }
+      }
+    },
+    "legal": {
+      "pending": {
+        "privacy": {
+          "title": "Privacy policy pending",
+          "description": "The privacy policy for this project has not been published yet."
+        },
+        "terms": {
+          "title": "Terms of service pending",
+          "description": "The terms of service for this project have not been published yet."
+        }
+      }
+    },
+    "events": {
+      "stream": { "error": { "server": "Server error" } }
+    },
+    "billing": {
+      "catalog": {
+        "plan": {
+          "name": "{credits} credits - {period}",
+          "description": "{credits} credits each month, billed {period}"
+        },
+        "pack": {
+          "name": "{credits} credits",
+          "description": "One-time purchase of {credits} credits"
+        },
+        "feature": { "monthlyCredits": "{credits} credits each month" },
+        "period": { "monthly": "monthly", "yearly": "yearly" }
+      }
+    },
+    "account": {
+      "credits": {
+        "badge": { "label": "{count} credits" },
+        "detail": {
+          "title": "Credit balance",
+          "subscription": "Subscription",
+          "purchased": "Purchased",
+          "bonus": "Bonus"
+        },
+        "action": { "manage": "View plans" }
+      }
+    },
+    "ai": {
+      "jobs": {
+        "page": {
+          "title": "AI jobs",
+          "description": "Run an enabled AI feature and review your recent jobs.",
+          "prompt": "Prompt",
+          "empty": "No jobs yet.",
+          "disabled": "No AI feature is enabled for this project.",
+          "loading": "Loading jobs...",
+          "loadError": "Jobs could not be loaded. Try again.",
+          "credits": "Credits"
+        },
+        "action": {
+          "submit": "Create job",
+          "download": "Download result",
+          "retry": "Retry"
+        },
+        "status": {
+          "reserved": "Preparing",
+          "starting": "Starting",
+          "processing": "Processing",
+          "succeeded": "Completed",
+          "failed": "Failed",
+          "unknown": "Checking job status"
+        },
+        "error": {
+          "unavailable": "This AI feature is unavailable.",
+          "invalid": "Enter a prompt before starting.",
+          "credits": "You need more credits to start this job.",
+          "pending": "The job request needs verification. Check its status before trying again."
+        }
+      }
+    },
     "email": {
       "common": {
         "header": {
           "logo": "MP3 to Text",
-          "subheader": "Audio & Video Transcription"
+          "subheader": "Your account and billing workspace"
         },
         "footer": {
-          "rightsReserved": "© {year} MP3ToText. All rights reserved.",
+          "rightsReserved": "© {year} SaaS Starter. All rights reserved.",
           "termsOfService": "Terms of Service",
           "privacyPolicy": "Privacy Policy",
           "helpPrefix": "Need help?",
