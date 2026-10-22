@@ -3000,6 +3000,119 @@ export interface MarketingDictionary {
     landing: LandingDictionary;
     mp3ToSrt: Mp3ToSrtLandingDictionary;
     m4aToText: LandingDictionary;
+    saasHome: SaasHomeDictionary;
+    raindanceHome: RaindanceHomeDictionary;
+}
+
+export interface RaindanceHomeDictionary {
+    metadata: { title: string; description: string };
+    hero: { title: string; subtitle: string; microcopy: string };
+    generator: {
+        slots: {
+            first: string;
+            second: string;
+            add: string;
+            replace: string;
+            remove: string;
+            preview: string;
+            processing: string;
+            uploading: string;
+        };
+        hint: { needBoth: string; needOne: string; ready: string };
+        cta: {
+            generate: string;
+            generateWithCredits: string;
+            preparing: string;
+            submitting: string;
+            makeAnother: string;
+            retry: string;
+        };
+        consent: { text: string; link: string };
+        progress: { title: string; description: string; tip: string };
+        result: {
+            title: string;
+            videoLabel: string;
+            save: string;
+            download: string;
+            saving: string;
+            iosHint: string;
+            shareFailed: string;
+        };
+        failed: { title: string; description: string };
+        unavailable: { title: string; description: string };
+        errors: {
+            fileType: string;
+            decode: string;
+            tooLarge: string;
+            rateLimited: string;
+            upload: string;
+            invalid: string;
+            credits: string;
+            unavailable: string;
+            generic: string;
+            status: string;
+        };
+    };
+    gates: {
+        auth: { title: string; description: string };
+        inApp: { title: string; description: string; copyLink: string; copied: string };
+        credits: {
+            title: string;
+            description: string;
+            balance: string;
+            pack: string;
+            packVideos: string;
+            popular: string;
+            pay: string;
+            redirecting: string;
+            confirming: string;
+            pending: string;
+        };
+    };
+    showcase: { title: string; description: string; items: Array<{ alt: string }> };
+    steps: { title: string; items: Array<{ title: string; description: string }> };
+    tips: { title: string; items: string[] };
+    pricing: {
+        title: string;
+        description: string;
+        pack: string;
+        packVideos: string;
+        popular: string;
+        cta: string;
+    };
+    faq: { title: string; items: FAQItem[] };
+    closing: { title: string; description: string; cta: string };
+}
+
+export interface SaasHomeDictionary {
+    page: {
+        metadata: {
+            title: string;
+            description: string;
+        };
+        hero: {
+            eyebrow: string;
+            title: string;
+            description: string;
+            primaryCta: string;
+            secondaryCta: string;
+            previewLabel: string;
+            previewTitle: string;
+            previewDescription: string;
+            previewItems: string[];
+        };
+        capabilities: {
+            eyebrow: string;
+            title: string;
+            description: string;
+            items: FeatureItem[];
+        };
+        closing: {
+            title: string;
+            description: string;
+            cta: string;
+        };
+    };
 }
 
 export interface AuthDictionary {

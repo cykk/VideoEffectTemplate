@@ -10,6 +10,7 @@ import * as transcriptions from "./transcriptions";
 import * as redemptionCodes from "./redemption-codes";
 import * as waffo from "./waffo";
 import * as aiJobs from "./ai-jobs";
+import * as userAttributions from "./user-attributions";
 
 export const schema = {
   users,
@@ -24,6 +25,7 @@ export const schema = {
   ...redemptionCodes,
   ...waffo,
   ...aiJobs,
+  ...userAttributions,
 };
 
 export type Schema = typeof schema;
@@ -40,3 +42,4 @@ export * from "./transcriptions";
 export * from "./redemption-codes";
 export * from "./waffo";
 export * from "./ai-jobs";
+export * from "./user-attributions";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useEffect, useState, FormEvent } from "react";
 import { authClient } from "@markless/shared/src/lib/auth/client";
 import { getClientAuthBaseUrl } from "@markless/shared/src/lib/http/client";
 import { cn } from "@markless/shared/src/lib/utils";
@@ -15,6 +15,8 @@ interface AuthFormProps {
     className?: string;
     isModal?: boolean;
     mode?: 'signin' | 'signup';
+    /** 传入后，在内置浏览器中隐藏 Google 登录并展示提示。 */
+    inAppNotice?: { title: string; description: string; copyLink: string; copied: string };
 }
 
 // --- Icons ---
@@ -77,12 +79,41 @@ function buildOAuthStartUrl(provider: "google", callbackURL: string): string {
     return startUrl.toString();
 }
 
-const ENABLE_MAGIC_LINK = false;
+const ENABLE_MAGIC_LINK = true;
+
+/**
+ * TikTok / Instagram / Facebook 等应用内置浏览器会被 Google 以 disallowed_useragent 拒绝 OAuth。
+ * 这里只做 UA 粗略识别，识别到后改为邮箱登录优先，并提示用户可复制链接到系统浏览器。
+ */
+const IN_APP_BROWSER_PATTERN = /(musical_ly|bytedancewebview|tiktok|trill|instagram|fban|fbav|fb_iab|line\/|snapchat|micromessenger|twitter)/i;
+
+function isInAppBrowser(): boolean {
+    if (typeof navigator === "undefined") return false;
+    return IN_APP_BROWSER_PATTERN.test(navigator.userAgent);
+}
 
 // --- Component ---
 
-export function AuthForm({ dictionary, onSuccess, className, isModal = false, mode: _mode = 'signin' }: AuthFormProps) {
+export function AuthForm({ dictionary, onSuccess, className, isModal = false, mode: _mode = 'signin', inAppNotice }: AuthFormProps) {
     const [pendingProvider, setPendingProvider] = useState<"google" | null>(null);
+    const [inApp, setInApp] = useState(false);
+    const [linkCopied, setLinkCopied] = useState(false);
+
+    useEffect(() => {
+        setInApp(isInAppBrowser());
+    }, []);
+
+    const hideGoogle = inApp && Boolean(inAppNotice);
+
+    const handleCopyLink = async () => {
+        try {
+            await navigator.clipboard.writeText(window.location.origin + window.location.pathname);
+            setLinkCopied(true);
+            window.setTimeout(() => setLinkCopied(false), 2500);
+        } catch {
+            setLinkCopied(false);
+        }
+    };
     const [magicEmail, setMagicEmail] = useState("");
     const [magicStatus, setMagicStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
     const [magicMessage, setMagicMessage] = useState<string | null>(null);
@@ -175,6 +206,19 @@ export function AuthForm({ dictionary, onSuccess, className, isModal = false, mo
             ) : (
                 // Normal form state
                 <>
+                    {hideGoogle && inAppNotice ? (
+                        <div className="space-y-3 rounded-xl border border-border bg-muted p-4 text-left">
+                            <p className="text-sm font-semibold text-foreground">{inAppNotice.title}</p>
+                            <p className="text-sm text-muted-foreground">{inAppNotice.description}</p>
+                            <button
+                                type="button"
+                                onClick={() => void handleCopyLink()}
+                                className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-lg bg-card text-sm font-medium text-foreground ring-1 ring-inset ring-border"
+                            >
+                                {linkCopied ? inAppNotice.copied : inAppNotice.copyLink}
+                            </button>
+                        </div>
+                    ) : (
                     <div className="grid gap-4">
                         <button
                             type="button"
@@ -189,9 +233,11 @@ export function AuthForm({ dictionary, onSuccess, className, isModal = false, mo
                             <span className="text-base">{dictionary.withGoogle}</span>
                         </button>
                     </div>
+                    )}
 
                     {ENABLE_MAGIC_LINK && (
                         <>
+                            {!hideGoogle && (
                             <div className="relative">
                                 <div className="absolute inset-0 flex items-center">
                                     <div className="w-full border-t border-border"></div>
@@ -202,6 +248,7 @@ export function AuthForm({ dictionary, onSuccess, className, isModal = false, mo
                                     </span>
                                 </div>
                             </div>
+                            )}
 
                             <form onSubmit={handleMagicLink} className="space-y-4">
                                 <div className="space-y-2">

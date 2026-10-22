@@ -15,3 +15,7 @@ export {
     trackStarterCheckoutStarted,
     trackStarterPurchaseCompleted,
 } from "./starter-payment";
+export {
+    trackRaindance,
+    type RaindanceEvent,
+} from "./raindance-funnel";

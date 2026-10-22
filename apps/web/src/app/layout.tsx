@@ -17,7 +17,7 @@ const inter = Inter({
 
 export function generateMetadata(): Metadata {
   const dictionary = getDictionary(defaultLocale);
-  const homeMetadata = dictionary.page.marketing.landing.metadata;
+  const homeMetadata = dictionary.marketing.raindanceHome.metadata;
 
   return {
     metadataBase: getMetadataBaseUrl(),

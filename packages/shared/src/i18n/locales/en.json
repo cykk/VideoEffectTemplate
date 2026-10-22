@@ -4980,6 +4980,215 @@
         "subtitle": "Use MP3ToText.io to convert MP3 to SRT, then export an editable file with accurate timestamps—without manual timecoding.",
         "button": "Upload Your MP3"
       }
+    },
+    "saasHome": {
+      "page": {
+        "metadata": {
+          "title": "A focused foundation for your SaaS",
+          "description": "Launch with the essentials already connected: accounts, billing, credits, operations, and optional AI jobs."
+        },
+        "hero": {
+          "eyebrow": "A practical foundation for your next product",
+          "title": "Build your SaaS around the product, not the plumbing.",
+          "description": "Start with connected accounts, payments, subscriptions, credits, and admin tools. Add your own product experience and turn on AI jobs when you need them.",
+          "primaryCta": "Create your account",
+          "secondaryCta": "View pricing",
+          "previewLabel": "Your product workspace",
+          "previewTitle": "One foundation. Room to grow.",
+          "previewDescription": "The core services are ready to work together.",
+          "previewItems": ["Accounts and access", "Payments and plans", "Credits and usage", "Optional AI jobs"]
+        },
+        "capabilities": {
+          "eyebrow": "Core building blocks",
+          "title": "The operational pieces, already connected.",
+          "description": "Keep the parts every paid product needs and shape the experience around your own idea.",
+          "items": [
+            {
+              "title": "Accounts and access",
+              "description": "Authentication, user settings, and account-aware application routes provide a clear starting point."
+            },
+            {
+              "title": "Payments and subscriptions",
+              "description": "Creem billing is integrated, with Waffo available as an optional provider after configuration and acceptance testing."
+            },
+            {
+              "title": "Credits and operations",
+              "description": "Usage balances, transaction history, admin tools, and support workflows give teams a place to operate."
+            },
+            {
+              "title": "Optional AI jobs",
+              "description": "Add Replicate-backed jobs with credit reservations, callbacks, recovery, and stored outputs when your product needs them."
+            }
+          ]
+        },
+        "closing": {
+          "title": "Start with the foundation. Make the product yours.",
+          "description": "Create an account to explore the application, then replace the default brand and content with your product.",
+          "cta": "Get started"
+        }
+      }
+    },
+    "raindanceHome": {
+      "metadata": {
+        "title": "Rain Dance Video Generator for TikTok",
+        "description": "Upload 2 photos and get a TikTok-ready rain dance video in minutes. No prompts to write, just pick your photos and generate."
+      },
+      "hero": {
+        "title": "Rain dance video generator",
+        "subtitle": "Upload 2 photos. Get a TikTok-ready video.",
+        "microcopy": "No prompts to write · Ready in a few minutes · 9:16 MP4"
+      },
+      "generator": {
+        "slots": {
+          "first": "Photo 1",
+          "second": "Photo 2",
+          "add": "Add photo",
+          "replace": "Replace photo {index}",
+          "remove": "Remove photo {index}",
+          "preview": "Selected photo {index}",
+          "processing": "Preparing…",
+          "uploading": "Uploading…"
+        },
+        "hint": {
+          "needBoth": "Add both photos to continue",
+          "needOne": "Add one more photo",
+          "ready": "Ready to generate"
+        },
+        "cta": {
+          "generate": "Generate video",
+          "generateWithCredits": "Generate video · {credits} credits",
+          "preparing": "Preparing your photos…",
+          "submitting": "Starting…",
+          "makeAnother": "Make another",
+          "retry": "Try again"
+        },
+        "consent": {
+          "text": "By generating, you confirm you have the right to use these photos.",
+          "link": "Terms"
+        },
+        "progress": {
+          "title": "Creating your video",
+          "description": "This usually takes a few minutes. You can keep this tab open or come back later.",
+          "tip": "Clear faces and good light give the best results."
+        },
+        "result": {
+          "title": "Your video is ready",
+          "videoLabel": "Generated rain dance video",
+          "save": "Save video",
+          "download": "Download",
+          "saving": "Preparing…",
+          "iosHint": "On iPhone, choose Save Video in the share sheet. You can also press and hold the video.",
+          "shareFailed": "Sharing was not available, so we started a download instead."
+        },
+        "failed": {
+          "title": "We could not create this video",
+          "description": "Your credits were returned. Try again, or use clearer photos where both faces are visible."
+        },
+        "unavailable": {
+          "title": "Video generation is not available right now",
+          "description": "Please try again later."
+        },
+        "errors": {
+          "fileType": "Please choose a photo (JPEG, PNG, WebP, or HEIC).",
+          "decode": "This photo could not be opened. Try another one.",
+          "tooLarge": "This photo is too large. Try a smaller one.",
+          "rateLimited": "Too many uploads. Please wait a bit and try again.",
+          "upload": "Upload failed. Check your connection and try again.",
+          "invalid": "Your photos expired. Please add them again.",
+          "credits": "You do not have enough credits yet.",
+          "unavailable": "Video generation is not available right now.",
+          "generic": "Something went wrong. Please try again.",
+          "status": "We could not check your video. Please refresh the page."
+        }
+      },
+      "gates": {
+        "auth": {
+          "title": "Sign in to create your video",
+          "description": "Your photos are saved. Sign in and we will continue where you left off."
+        },
+        "inApp": {
+          "title": "Sign in with email in this browser",
+          "description": "Google sign-in is blocked inside this app. Use email, or open this page in your phone browser.",
+          "copyLink": "Copy page link",
+          "copied": "Link copied"
+        },
+        "credits": {
+          "title": "Add credits to create your video",
+          "description": "Each video uses {credits} credits. Your photos are saved and we will start right after payment.",
+          "balance": "Your balance: {credits} credits",
+          "pack": "{credits} credits",
+          "packVideos": "About {videos} videos",
+          "popular": "Most popular",
+          "pay": "Pay {price}",
+          "redirecting": "Opening checkout…",
+          "confirming": "Confirming your payment…",
+          "pending": "Your payment is still processing. Your credits will appear shortly."
+        }
+      },
+      "showcase": {
+        "title": "See what you can make",
+        "description": "Real examples from two photos.",
+        "items": [
+          { "alt": "Rain dance video example 1" },
+          { "alt": "Rain dance video example 2" },
+          { "alt": "Rain dance video example 3" }
+        ]
+      },
+      "steps": {
+        "title": "How it works",
+        "items": [
+          { "title": "Add 2 photos", "description": "Pick photos from your camera roll or take new ones." },
+          { "title": "Tap generate", "description": "We write the prompt for you. Nothing to type." },
+          { "title": "Save and post", "description": "Download your 9:16 video and share it on TikTok." }
+        ]
+      },
+      "tips": {
+        "title": "Photo tips",
+        "items": [
+          "Use clear, front-facing photos where faces are easy to see.",
+          "Good light works better than filters.",
+          "Use one person per photo for the most reliable result.",
+          "Avoid heavy crops, sunglasses, or blurry shots."
+        ]
+      },
+      "pricing": {
+        "title": "Simple credit packs",
+        "description": "Pay once, create when you want. Each video uses {credits} credits.",
+        "pack": "{credits} credits",
+        "packVideos": "About {videos} videos",
+        "popular": "Most popular",
+        "cta": "Start creating"
+      },
+      "faq": {
+        "title": "Questions",
+        "items": [
+          {
+            "question": "Can I use photos of other people?",
+            "answer": "<p>Only upload photos you have the right to use, and only with the consent of the people shown. You are responsible for the content you submit.</p>"
+          },
+          {
+            "question": "How long does a video take?",
+            "answer": "<p>Most videos finish in a few minutes. You can leave the page open or come back later.</p>"
+          },
+          {
+            "question": "What format is the video?",
+            "answer": "<p>You get a vertical 9:16 MP4 that is ready for TikTok and other short video apps.</p>"
+          },
+          {
+            "question": "What if the video fails?",
+            "answer": "<p>If a video cannot be created, the credits for that video are returned to your account automatically.</p>"
+          },
+          {
+            "question": "How long are my photos kept?",
+            "answer": "<p>Photos you add are used only to create your video and are deleted automatically within 24 hours.</p>"
+          }
+        ]
+      },
+      "closing": {
+        "title": "Ready to make your rain dance video?",
+        "description": "Add two photos and have it in minutes.",
+        "cta": "Add my photos"
+      }
     }
   },
   "component": {

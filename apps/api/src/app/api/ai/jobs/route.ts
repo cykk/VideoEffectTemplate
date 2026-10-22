@@ -14,11 +14,16 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const session = await auth.api.getSession({ headers: request.headers })
   if (!session?.user?.id) return NextResponse.json({ ok: false }, { status: 401 })
-  const body = await request.json().catch(() => null) as { requestKey?: unknown; featureKey?: unknown; prompt?: unknown } | null
-  if (!body || typeof body.requestKey !== 'string' || typeof body.featureKey !== 'string' || typeof body.prompt !== 'string')
+  const body = await request.json().catch(() => null) as
+    { requestKey?: unknown; featureKey?: unknown; prompt?: unknown; images?: unknown } | null
+  if (!body || typeof body.requestKey !== 'string' || typeof body.featureKey !== 'string'
+    || (body.prompt !== undefined && typeof body.prompt !== 'string')
+    || (body.images !== undefined && !Array.isArray(body.images))
+    || (body.prompt === undefined && body.images === undefined))
     return NextResponse.json({ ok: false, error: 'app.ai.jobs.error.invalid' }, { status: 400 })
   try {
-    const job = await submitAiJob(session.user.id, body.requestKey, body.featureKey, body.prompt)
+    const job = await submitAiJob(session.user.id, body.requestKey, body.featureKey,
+      { prompt: body.prompt as string | undefined, images: body.images })
     return NextResponse.json({ ok: true, job })
   } catch (error) {
     const message = error instanceof Error ? error.message : ''

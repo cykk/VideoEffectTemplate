@@ -43,6 +43,8 @@ interface PaymentState {
 interface CreateCheckoutOptions {
   entrySurface?: string;
   silentFailure?: boolean;
+  /** 显式指定支付完成后的回跳地址（必须是站内路径），优先于按当前页面推断的地址。 */
+  returnTo?: string;
 }
 
 const CHECKOUT_REQUEST_TIMEOUT_MS = 15000;
@@ -83,6 +85,7 @@ export function usePayment() {
         const toolReturnTo = resolveCheckoutReturnPath(pathname, currentSearch);
         const rememberedToolReturnTo = readLastToolReturnPath();
         const returnTo =
+          sanitizeLocalReturnTo(options?.returnTo) ??
           toolReturnTo ??
           explicitReturnTo ??
           (isPricingRoute(pathname)

@@ -5,10 +5,15 @@ const { testDatabase, mocks } = require('../payments/support.cjs');
 process.env.REPLICATE_ENABLED = 'true';
 process.env.REPLICATE_API_TOKEN = 'test-token';
 process.env.REPLICATE_WEBHOOK_SECRET = 'test-secret';
-process.env.AI_FEATURES = JSON.stringify({ image: { version: 'a'.repeat(64), credits: 25 } });
+process.env.AI_FEATURES = JSON.stringify({
+  image: { version: 'a'.repeat(64), credits: 25 },
+  raindance: { version: 'b'.repeat(64), credits: 20, kind: 'image_pair', imageFields: ['image', 'image_2'], params: { aspect_ratio: '9:16' } },
+});
+process.env.BETTER_AUTH_SECRET = 'test-auth-secret-for-upload-tokens';
 process.env.NEXT_PUBLIC_APP_URL = 'https://api.example.com';
 
-let db, pg, schema, jobs;
+let db, pg, schema, jobs, uploads;
+const storedObjects = new Set();
 let requestPrediction = async () => ({ id: 'pred-123', status: 'starting' });
 before(async () => {
   ({ db, pg, schema } = await testDatabase());
@@ -19,7 +24,13 @@ before(async () => {
   mocks.set('@markless/server/src/lib/ai/output', {
     persistAiOutput: async (_userId, _jobId, output) => ({ kind: 'json', value: output }),
   });
+  mocks.set('@markless/server/src/lib/storage/r2-storage', {
+    uploadToR2: async (_buffer, key) => { storedObjects.add(key); return key; },
+    headR2Object: async key => { if (!storedObjects.has(key)) throw new Error('missing'); return {}; },
+    getPresignedUrl: async key => `https://r2.example.com/${key}?signed=1`,
+  });
   jobs = require('../../packages/server/src/lib/ai/jobs.ts');
+  uploads = require('../../packages/server/src/lib/ai/uploads.ts');
 });
 after(async () => { await pg?.close(); });
 beforeEach(async () => {
@@ -131,4 +142,40 @@ test('disabling new AI jobs does not stop review of existing reservations', asyn
   } finally {
     process.env.REPLICATE_ENABLED = 'true';
   }
+});
+
+const jpeg = () => Buffer.concat([Buffer.from([0xff, 0xd8, 0xff, 0xe0]), Buffer.alloc(32, 1)]);
+
+test('upload tokens are signed, typed and expire', async () => {
+  assert.equal(await uploads.storeAiUpload(Buffer.from('not an image at all')), null);
+  const stored = await uploads.storeAiUpload(jpeg());
+  assert.ok(uploads.resolveAiUploadKey(stored.token)?.startsWith('private/ai-uploads/'));
+  const [id, exp, signature] = stored.token.split('.');
+  assert.equal(uploads.resolveAiUploadKey(`${id}.${exp}.${signature[0] === 'A' ? 'B' : 'A'}${signature.slice(1)}`), null);
+  assert.equal(uploads.resolveAiUploadKey(`${id}.${(Date.now() - 1000).toString(36)}.${signature}`), null);
+  assert.equal(uploads.resolveAiUploadKey('../../etc/passwd'), null);
+});
+
+test('image pair job reserves once and sends presigned images with the fixed prompt', async () => {
+  const [first, second] = [await uploads.storeAiUpload(jpeg()), await uploads.storeAiUpload(jpeg())];
+  let sent;
+  requestPrediction = async body => { sent = body; return { id: 'pred-rd', status: 'starting' }; };
+  const images = [first.token, second.token];
+  const job = await jobs.submitAiJob('user', 'raindance-req-1', 'raindance', { images });
+  const again = await jobs.submitAiJob('user', 'raindance-req-1', 'raindance', { images });
+  assert.equal(again.id, job.id);
+  assert.equal((await account()).totalBalance, 80);
+  assert.equal(sent.version, 'b'.repeat(64));
+  assert.equal(sent.input.aspect_ratio, '9:16');
+  assert.match(sent.input.image, /^https:\/\/r2\.example\.com\/private\/ai-uploads\//);
+  assert.match(sent.input.image_2, /signed=1$/);
+  assert.ok(sent.input.prompt.length > 20);
+});
+
+test('image pair job rejects bad or duplicated uploads without charging', async () => {
+  const one = await uploads.storeAiUpload(jpeg());
+  await assert.rejects(jobs.submitAiJob('user', 'raindance-req-2', 'raindance', { images: [one.token, one.token] }), /invalid/);
+  await assert.rejects(jobs.submitAiJob('user', 'raindance-req-2', 'raindance', { images: [one.token] }), /invalid/);
+  await assert.rejects(jobs.submitAiJob('user', 'raindance-req-2', 'raindance', { prompt: 'text only' }), /invalid/);
+  assert.equal((await account()).totalBalance, 100);
 });

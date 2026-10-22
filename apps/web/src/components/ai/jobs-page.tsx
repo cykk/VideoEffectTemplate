@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 
 type Job = { id: string; featureKey: string; status: string; credits: number; createdAt: string;
   output: { kind?: string; value?: unknown } | null }
-type Feature = { key: string; credits: number }
+type Feature = { key: string; credits: number; kind?: string }
 
 export function AiJobsPage() {
   const { dictionary } = useLocale()
@@ -28,8 +28,10 @@ export function AiJobsPage() {
       if (!response.ok) throw new Error('Job list unavailable')
       const data = await response.json()
       setJobs(data.jobs)
-      setFeatures(data.features)
-      setSelected(current => current || data.features[0]?.key || '')
+      // 双图类功能（如 RainDance）在首页生成，这里只保留需要输入文字的功能。
+      const textFeatures: Feature[] = (data.features as Feature[]).filter(feature => feature.kind !== 'image_pair')
+      setFeatures(textFeatures)
+      setSelected(current => current || textFeatures[0]?.key || '')
       setLoadError(false)
     } catch { setLoadError(true) }
     finally { setLoading(false) }

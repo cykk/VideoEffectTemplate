@@ -9,3 +9,4 @@ export * from "./contact-messages";
 export * from "./redemption-codes";
 export * from "./waffo";
 export * from "./ai-jobs";
+export * from "./user-attributions";

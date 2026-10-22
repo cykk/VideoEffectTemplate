@@ -2,6 +2,7 @@ import {
     DeleteObjectCommand,
     GetObjectCommand,
     HeadObjectCommand,
+    ListObjectsV2Command,
     PutObjectCommand,
     S3Client,
 } from "@aws-sdk/client-s3";
@@ -362,6 +363,49 @@ export async function deleteFromR2(key: string): Promise<void> {
             throw error;
         }
         throw new R2OperationError("Failed to delete file from R2", error);
+    }
+}
+
+/**
+ * 按前缀列出对象（最多 maxKeys 个），用于清理临时文件等运维任务。
+ */
+export async function listR2Objects(
+    prefix: string,
+    maxKeys: number = 1000
+): Promise<Array<{ key: string; lastModified: Date | null }>> {
+    try {
+        const config = resolveR2Config();
+        const r2Client = getR2Client(config);
+        const objects: Array<{ key: string; lastModified: Date | null }> = [];
+        let continuationToken: string | undefined;
+
+        while (objects.length < maxKeys) {
+            const response = await r2Client.send(
+                new ListObjectsV2Command({
+                    Bucket: config.bucketName,
+                    Prefix: prefix,
+                    MaxKeys: Math.min(1000, maxKeys - objects.length),
+                    ContinuationToken: continuationToken,
+                })
+            );
+            for (const item of response.Contents ?? []) {
+                if (item.Key) {
+                    objects.push({ key: item.Key, lastModified: item.LastModified ?? null });
+                }
+            }
+            if (!response.IsTruncated || !response.NextContinuationToken) {
+                break;
+            }
+            continuationToken = response.NextContinuationToken;
+        }
+
+        return objects;
+    } catch (error) {
+        console.error("R2 list error:", error);
+        if (error instanceof R2ConfigurationError) {
+            throw error;
+        }
+        throw new R2OperationError("Failed to list files in R2", error);
     }
 }
 

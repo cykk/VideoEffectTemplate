@@ -10,6 +10,7 @@ import { checkMagicLinkRateLimit, formatResetTime } from "@markless/server/src/l
 import { BRAND_CONFIG } from "@markless/shared/src/lib/config/brand";
 import { getWebBaseUrl } from "@markless/shared/src/lib/config/urls";
 import { getEnv } from "@markless/shared/src/lib/config/env";
+import { bindFirstTouch, getRequestFromAuthContext, parseFirstTouch, FIRST_TOUCH_COOKIE } from "@markless/server/src/lib/attribution/first-touch";
 
 function normalizeOrigin(value?: string): string | null {
     if (!value) return null;
@@ -125,6 +126,21 @@ export const auth = betterAuth({
     database: drizzleAdapter(db, {
         provider: "pg",
     }),
+    databaseHooks: {
+        user: {
+            create: {
+                after: async (user, context) => {
+                    try {
+                        const request = getRequestFromAuthContext(context);
+                        const touch = request ? parseFirstTouch(request.headers.get("cookie")?.match(new RegExp(`(?:^|;\\s*)${FIRST_TOUCH_COOKIE}=([^;]*)`))?.[1]) : null;
+                        await bindFirstTouch(user.id, touch);
+                    } catch (error) {
+                        console.error("[Attribution] Failed to bind first touch", error);
+                    }
+                },
+            },
+        },
+    },
     socialProviders,
     plugins: [
         magicLink({
